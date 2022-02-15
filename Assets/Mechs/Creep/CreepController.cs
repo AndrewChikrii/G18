@@ -8,8 +8,9 @@ public class CreepController : MonoBehaviour
     [SerializeField] GameObject[] inputDestList;
     [SerializeField] List<Vector3> destList;
     [SerializeField] GameObject watchPoint;
-    [SerializeField] bool useRandomDest; //f
-    [SerializeField] float roamWaitTime; //5
+    [SerializeField] bool useRandomDest; 
+    [SerializeField] bool forgetExtraDests; 
+    [SerializeField] float roamWaitTime; 
     [SerializeField] string currState;
     [SerializeField] int currDestIndex;
     [SerializeField] Vector3 dest;
@@ -70,29 +71,29 @@ public class CreepController : MonoBehaviour
             playerCheckComp = targetHit.collider.gameObject.GetComponent<SC_FPSController>();
         } catch {}
 
-        if(playerCheckComp) { //check if player is visible for creep WHEN TO AGGRO
+        if(playerCheckComp) { //check if player is visible for creep 
             if ((cpAngle < 105f)) { //check angle player <=> creep
                 aggroSpoolUp += Time.deltaTime * 100f * aggroSpoolUpModifier;
                 if(aggroSpoolUp >= aggroSpoolMax) {
                     aggroSpoolUp = aggroSpoolMax;
-                    currState = states[3];
+                    currState = states[3]; //WHEN TO AGGRO (1)
                     dest = player.transform.position;
                 }
             }  
         } else if (currState == states[3] && aggroSpoolUp <= 0f) { // WHEN TO DEAGGRO
-            dest = player.transform.position;
+            destList.Add(transform.position); //add last pos where seen player as dest for future
             currState = states[1];
             if (Vector3.Distance(watchPoint.transform.position, dest) < 1.5f) { 
                 // ...
             }
-        } else if (aggroSpoolUp > 0) {
+        } else if (aggroSpoolUp > 0) { // keep following until aggro spool drop to 0
             dest = player.transform.position;
             aggroSpoolUp -= Time.deltaTime * 100f * aggroSpoolDownModifier;
         }
-        if (cpDist < 7.5f) { //check dist player <=> creep
+        if (cpDist < 7.5f) { //check dist player <=> creep 
             aggroSpoolUp = aggroSpoolMax;
             dest = player.transform.position;
-            currState = states[3]; 
+            currState = states[3]; //WHEN TO AGGRO (2)
         }
     }
     // TODO dropAggroPoint add to dest list and clear after visit. add initdestlength, in Start() init. check if dest is out of it when pop
@@ -119,6 +120,9 @@ public class CreepController : MonoBehaviour
     }
 
     IEnumerator IdleWhileRoaming() {
+        if(forgetExtraDests && currDestIndex > inputDestList.Length - 1) {
+            destList.RemoveAt(currDestIndex); // clear player generated dest
+        }
         currState = states[0];
         yield return new WaitForSeconds(roamWaitTime);
         if(currState == states[0] || aggroSpoolUp <= 0f) {

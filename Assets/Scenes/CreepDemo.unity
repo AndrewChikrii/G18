@@ -4642,6 +4642,7 @@ MonoBehaviour:
   destList: []
   watchPoint: {fileID: 2134065593}
   useRandomDest: 0
+  forgetExtraDests: 1
   roamWaitTime: 2
   currState: 
   currDestIndex: 0
