@@ -4635,17 +4635,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0834c6c5621fff409da841ed7205006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destList:
+  inputDestList:
   - {fileID: 2061541821}
   - {fileID: 177558812}
   - {fileID: 1895618932}
+  destList: []
   watchPoint: {fileID: 2134065593}
   useRandomDest: 0
-  roamWaitTime: 5
+  roamWaitTime: 2
   currState: 
-  currDest: 0
+  currDestIndex: 0
+  dest: {x: 0, y: 0, z: 0}
   aggroSpoolUp: 0
   aggroSpoolMax: 100
+  aggroSpoolUpModifier: 1
+  aggroSpoolDownModifier: 0.25
 --- !u!1001 &1608947149
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,15 +1,17 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class CreepController : MonoBehaviour
 {
-    [SerializeField] GameObject[] destList;
+    [SerializeField] GameObject[] inputDestList;
+    [SerializeField] List<Vector3> destList;
     [SerializeField] GameObject watchPoint;
     [SerializeField] bool useRandomDest; //f
     [SerializeField] float roamWaitTime; //5
     [SerializeField] string currState;
-    [SerializeField] int currDest;
+    [SerializeField] int currDestIndex;
     [SerializeField] Vector3 dest;
     string[] states = {"idle", "roaming", "sus", "aggro"};
     GameObject player;
@@ -19,11 +21,16 @@ public class CreepController : MonoBehaviour
     Color stateColor;
     [SerializeField] float aggroSpoolUp = 0f;
     [SerializeField] float aggroSpoolMax; //200
+    [SerializeField] float aggroSpoolUpModifier; //1
+    [SerializeField] float aggroSpoolDownModifier; //.25
 
     void Start() {
         currState = states[1]; //0
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("PlayerCamera");
+        foreach (GameObject g in inputDestList) {
+            destList.Add(g.transform.position);
+        }
     }
 
     void FixedUpdate() {
@@ -58,60 +65,64 @@ public class CreepController : MonoBehaviour
         Debug.DrawRay(watchPoint.transform.position, cpDir * cpDist, stateColor);
         rayTargetShot = Physics.Raycast(watchPoint.transform.position, cpDir, out targetHit, cpDist);
 
-        if(targetHit.collider.gameObject.GetComponent<SC_FPSController>()) { //check if player is visible for creep WHEN TO AGGRO
+        Component playerCheckComp = null;
+        try {
+            playerCheckComp = targetHit.collider.gameObject.GetComponent<SC_FPSController>();
+        } catch {}
+
+        if(playerCheckComp) { //check if player is visible for creep WHEN TO AGGRO
             if ((cpAngle < 105f)) { //check angle player <=> creep
-                aggroSpoolUp += Time.deltaTime * 100f;
+                aggroSpoolUp += Time.deltaTime * 100f * aggroSpoolUpModifier;
                 if(aggroSpoolUp >= aggroSpoolMax) {
                     aggroSpoolUp = aggroSpoolMax;
                     currState = states[3];
                     dest = player.transform.position;
                 }
-            } 
-        } else if (cpDist < 7.5f) { //check dist player <=> creep
-            aggroSpoolUp = aggroSpoolMax;
-            dest = player.transform.position;
-            currState = states[3]; 
+            }  
         } else if (currState == states[3] && aggroSpoolUp <= 0f) { // WHEN TO DEAGGRO
             dest = player.transform.position;
             currState = states[1];
-            if (Vector3.Distance(watchPoint.transform.position, dest) < 0.5f) { 
+            if (Vector3.Distance(watchPoint.transform.position, dest) < 1.5f) { 
                 // ...
             }
         } else if (aggroSpoolUp > 0) {
             dest = player.transform.position;
-            aggroSpoolUp -= Time.deltaTime * 10f;
+            aggroSpoolUp -= Time.deltaTime * 100f * aggroSpoolDownModifier;
         }
-
+        if (cpDist < 7.5f) { //check dist player <=> creep
+            aggroSpoolUp = aggroSpoolMax;
+            dest = player.transform.position;
+            currState = states[3]; 
+        }
     }
-    // TODO dropAggroPoint add to dest list and clear after visit. add serialized initdestlength, in Start() init. check if dest is out of it when pop
+    // TODO dropAggroPoint add to dest list and clear after visit. add initdestlength, in Start() init. check if dest is out of it when pop
 
     void Idle() {
         
     }
 
     void Roam() {
-        dest = destList[currDest].transform.position;
+        dest = destList[currDestIndex];
         agent.SetDestination(dest);
         if(Vector3.Distance(watchPoint.transform.position, dest) < 1.5f) {
             StartCoroutine(IdleWhileRoaming());
             if(!useRandomDest) {
-                if(currDest < destList.Length - 1) {
-                    currDest++;
+                if(currDestIndex < destList.Count - 1) {
+                    currDestIndex++;
                 } else {
-                    currDest = 0;
+                    currDestIndex = 0;
                 }
             } else {
-                currDest = Random.Range(0, destList.Length);
+                currDestIndex = Random.Range(0, destList.Count);
             }
         }
     }
 
     IEnumerator IdleWhileRoaming() {
-        Debug.Log(1);
         currState = states[0];
         yield return new WaitForSeconds(roamWaitTime);
-        Debug.Log(2);
-        if(aggroSpoolUp <= 0f) {
+        if(currState == states[0] || aggroSpoolUp <= 0f) {
+            aggroSpoolUp = 0f;
             currState = states[1];
         }
         yield return null;
