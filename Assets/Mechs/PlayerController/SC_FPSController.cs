@@ -10,16 +10,18 @@ public class SC_FPSController : MonoBehaviour
 	float runningSpeed = 9f;
 	float jumpSpeed = 8.0f;
 	float gravity = 20.0f;
-	public Camera playerCamera;
+	[SerializeField] Camera playerCamera;
 	[SerializeField] float lookSpeed = 2f;
 	float lookXLimit = 65.0f;
+	RaycastHit hitUpward;
+    bool rayShot;
 
 	CharacterController characterController;
 	Vector3 moveDirection = Vector3.zero;
 	float rotationX = 0;
 
 	[SerializeField] bool canMove = true;
-	[SerializeField] bool crouched = false;
+	[SerializeField] bool crouched = false; 
 	Transform comCont;
 	void Start() {
 		characterController = GetComponent<CharacterController>();
@@ -40,6 +42,9 @@ public class SC_FPSController : MonoBehaviour
 		float movementDirectionY = moveDirection.y;
 		moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
+		Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(Vector3.up) * 1f, Color.grey);
+        rayShot = Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(Vector3.up), out hitUpward, 1f);
+
 		if (Input.GetButton("Jump") && canMove && characterController.isGrounded && !crouched) {
 			moveDirection.y = jumpSpeed;
 		} else {
@@ -55,7 +60,7 @@ public class SC_FPSController : MonoBehaviour
 			characterController.center = new Vector3(0f, Mathf.Lerp(characterController.center.y, -0.375f, 20f * Time.deltaTime), 0f);
 			playerCamera.transform.localPosition = new Vector3(0f, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.15f, 20f * Time.deltaTime), 0f);
 			
-		} else if (characterController.height < 2f) {
+		} else if (characterController.height < 2f && !hitUpward.collider) {
 			crouched = false;
 			walkingSpeed = 7f;
 			runningSpeed = 9f;
