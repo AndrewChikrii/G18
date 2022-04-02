@@ -9,6 +9,12 @@ public class Openable : MonoBehaviour, IActivatable
     [SerializeField] bool freezed;
     [SerializeField] bool locked;
     
+    void Start() {
+        if(opened) {
+            Open();
+        }
+    }
+
     public void ActPrimary() {
         if(!locked && !freezed) {
             if(!opened) {
@@ -28,7 +34,9 @@ public class Openable : MonoBehaviour, IActivatable
 
     void Open() {
         StartCoroutine(Freeze());
-        opened = !opened;
+        if(!opened) {
+            opened = !opened;
+        }
         rotator.GetComponent<DoorRotator>().SetRot(true);
     }
     void Close() {
