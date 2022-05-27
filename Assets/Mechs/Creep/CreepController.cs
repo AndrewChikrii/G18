@@ -19,9 +19,9 @@ public class CreepController : MonoBehaviour
     NavMeshAgent agent;
     RaycastHit targetHit;
     bool rayTargetShot;
-    Color stateColor;
+    Color stateColor = Color.white;
     [SerializeField] float aggroSpoolUp = 0f;
-    [SerializeField] float aggroSpoolMax; //200
+    [SerializeField] float aggroSpoolMax; //100
     [SerializeField] float aggroSpoolUpModifier; //1
     [SerializeField] float aggroSpoolDownModifier; //.25
 
@@ -38,7 +38,7 @@ public class CreepController : MonoBehaviour
         Debug.DrawRay(watchPoint.transform.position, watchPoint.transform.TransformDirection(Vector3.forward) * 10f, Color.grey);
 
         HandleStates();
-        
+    
         switch(currState) {
             case "idle": //0
                 stateColor = Color.blue;
@@ -62,7 +62,7 @@ public class CreepController : MonoBehaviour
         Vector3 cpDir = (player.transform.position - watchPoint.transform.position).normalized;
         float cpDist = Vector3.Distance(player.transform.position, watchPoint.transform.position);
         float cpAngle = Vector3.Angle(cpDir, watchPoint.transform.TransformDirection(Vector3.forward));
-        
+
         Debug.DrawRay(watchPoint.transform.position, cpDir * cpDist, stateColor);
         rayTargetShot = Physics.Raycast(watchPoint.transform.position, cpDir, out targetHit, cpDist);
 
