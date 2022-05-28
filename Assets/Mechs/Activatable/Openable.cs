@@ -8,7 +8,8 @@ public class Openable : MonoBehaviour, IActivatable
     [SerializeField] bool opened;
     [SerializeField] bool freezed;
     [SerializeField] bool locked;
-    
+    [SerializeField] float freezeTime = 1f;
+
     void Start() {
         if(opened) {
             Open();
@@ -28,9 +29,7 @@ public class Openable : MonoBehaviour, IActivatable
         }
     }
     public void ActSecondary() {}
-    public void Deact() {
-        
-    }
+    public void Deact() {}
 
     void Open() {
         StartCoroutine(Freeze());
@@ -47,7 +46,7 @@ public class Openable : MonoBehaviour, IActivatable
 
     IEnumerator Freeze() {
         freezed = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(freezeTime);
         freezed = false;
     }
 

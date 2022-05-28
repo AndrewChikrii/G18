@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class DoorRotator : MonoBehaviour
 {
-    [SerializeField] float yrot;
-    [SerializeField] float rotClosed = 0f;
-    [SerializeField] float rotOpened = 110f;
-    [SerializeField] float speed;
-    void Update()
-    {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x, yrot, transform.rotation.z), Time.deltaTime * speed);
+    float xrot;
+    float yrot;
+    float zrot;
+    [SerializeField] float openX;
+    [SerializeField] float openY;
+    [SerializeField] float openZ;
+    [SerializeField] float speed = 1f;
+
+    void Start() {
+        xrot = transform.localRotation.x;
+        yrot = transform.localRotation.y;
+        zrot = transform.localRotation.z;
+    }
+
+    void Update() {
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(xrot, yrot, zrot), Time.deltaTime * speed);
     }
 
     public void SetRot(bool rot) {
         if(rot) {
-            yrot = rotOpened;
+            xrot = xrot + openX;
+            yrot = yrot + openY;
+            zrot = zrot + openZ;
         } else {
-            yrot = rotClosed;
+            xrot = xrot - openX;
+            yrot = yrot - openY;
+            zrot = zrot - openZ;
         }
     }
 

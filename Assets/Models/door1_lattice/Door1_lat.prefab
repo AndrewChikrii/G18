@@ -651,9 +651,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f678c393b84d8f4c83c28d346216567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yrot: 0
-  rotClosed: 0
-  rotOpened: -110
+  openX: 0
+  openY: -110
+  openZ: 0
   speed: 1
 --- !u!1 &2675642819581295285
 GameObject:
@@ -992,6 +992,7 @@ MonoBehaviour:
   opened: 0
   freezed: 0
   locked: 0
+  freezeTime: 1
 --- !u!1 &2675642820133079836
 GameObject:
   m_ObjectHideFlags: 0
