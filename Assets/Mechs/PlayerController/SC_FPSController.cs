@@ -57,7 +57,7 @@ public class SC_FPSController : MonoBehaviour
 			//playerCamera.GetComponent<PRaycast>().FreezeAction(true);
 			characterController.height = Mathf.Lerp(characterController.height, 1.25f, 20f * Time.deltaTime);
 			characterController.center = new Vector3(0f, Mathf.Lerp(characterController.center.y, -0.375f, 20f * Time.deltaTime), 0f);
-			playerCamera.transform.localPosition = new Vector3(0f, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.15f, 20f * Time.deltaTime), 0f);
+			playerCamera.transform.localPosition = new Vector3(0f, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.1f, 20f * Time.deltaTime), 0f);
 			
 		} else if (characterController.height < 2f) {
 			crouched = false;

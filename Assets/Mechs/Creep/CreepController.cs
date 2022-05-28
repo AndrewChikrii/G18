@@ -11,6 +11,7 @@ public class CreepController : MonoBehaviour
     [SerializeField] bool useRandomDest; 
     [SerializeField] bool forgetExtraDests; 
     [SerializeField] float roamWaitTime = 3f; 
+    [SerializeField] float aggroDist = 7.5f;
     [SerializeField] string currState;
     [SerializeField] int currDestIndex;
     [SerializeField] Vector3 dest;
@@ -76,14 +77,16 @@ public class CreepController : MonoBehaviour
         float cpAngle = Vector3.Angle(cpDir, watchPoint.transform.TransformDirection(Vector3.forward));
 
         Debug.DrawRay(watchPoint.transform.position, cpDir * cpDist, stateColor);
-        rayTargetShot = Physics.Raycast(watchPoint.transform.position, cpDir, out targetHit, cpDist);
+        rayTargetShot = Physics.Raycast(watchPoint.transform.position, cpDir, out targetHit, 100f);
 
         Component playerCheckComp = null;
         try {
             playerCheckComp = targetHit.collider.gameObject.GetComponent<SC_FPSController>();
         } catch {}
 
-        if(playerCheckComp) { //check if player is visible for creep 
+        //Debug.Log(targetHit.collider.gameObject.name);
+
+        if(targetHit.collider.gameObject.GetComponent<SC_FPSController>()) { //check if ray hit obj is player's cam
             if ((cpAngle < 105f)) { //check angle player <=> creep
                 aggroSpoolUp += Time.deltaTime * 100f * aggroSpoolUpModifier;
                 if(aggroSpoolUp >= aggroSpoolMax) {
@@ -106,7 +109,7 @@ public class CreepController : MonoBehaviour
             dest = player.transform.position;
             aggroSpoolUp -= Time.deltaTime * 100f * aggroSpoolDownModifier;
         }
-        if (cpDist < 7.5f) { //check dist player <=> creep 
+        if (cpDist < aggroDist) { //check dist player <=> creep 
             aggroSpoolUp = aggroSpoolMax;
             dest = player.transform.position;
             currState = states[3]; //WHEN TO AGGRO (2)
