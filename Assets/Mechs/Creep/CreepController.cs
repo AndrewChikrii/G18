@@ -10,24 +10,30 @@ public class CreepController : MonoBehaviour
     [SerializeField] GameObject watchPoint;
     [SerializeField] bool useRandomDest; 
     [SerializeField] bool forgetExtraDests; 
-    [SerializeField] float roamWaitTime; 
+    [SerializeField] float roamWaitTime = 3f; 
     [SerializeField] string currState;
     [SerializeField] int currDestIndex;
     [SerializeField] Vector3 dest;
     string[] states = {"idle", "roaming", "sus", "aggro"};
     GameObject player;
     NavMeshAgent agent;
+    [SerializeField] float agentSpeedNormal = 2;
+    [SerializeField] float agentSpeedTurbo = 3;
     RaycastHit targetHit;
     bool rayTargetShot;
     Color stateColor = Color.white;
     [SerializeField] float aggroSpoolUp = 0f;
-    [SerializeField] float aggroSpoolMax; //100
-    [SerializeField] float aggroSpoolUpModifier; //1
-    [SerializeField] float aggroSpoolDownModifier; //.25
+    [SerializeField] float aggroSpoolMax = 100f; 
+    [SerializeField] float aggroSpoolUpModifier = 1f;
+    [SerializeField] float aggroSpoolDownModifier = 0.25f;
+
+    Animator anim;
 
     void Start() {
+        anim = this.gameObject.transform.GetChild(0).GetComponent<Animator>();
         currState = states[1]; //0
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = agentSpeedNormal;
         player = GameObject.Find("PlayerCamera");
         foreach (GameObject g in inputDestList) {
             destList.Add(g.transform.position);
@@ -42,10 +48,16 @@ public class CreepController : MonoBehaviour
         switch(currState) {
             case "idle": //0
                 stateColor = Color.blue;
-                Idle();
+                
+                    //anim.SetTrigger("lookingAround");
+                
+                
                 break;
             case "roaming": //1
                 stateColor = Color.white;
+                
+                    //anim.SetTrigger("walking");
+                
                 Roam();
                 break;
             case "sus": //2
@@ -78,14 +90,18 @@ public class CreepController : MonoBehaviour
                     aggroSpoolUp = aggroSpoolMax;
                     currState = states[3]; //WHEN TO AGGRO (1)
                     dest = player.transform.position;
+                    
                 }
             }  
         } else if (currState == states[3] && aggroSpoolUp <= 0f) { // WHEN TO DEAGGRO
             destList.Add(transform.position); //add last pos where seen player as dest for future
             currState = states[1];
-            if (Vector3.Distance(watchPoint.transform.position, dest) < 1.5f) { 
-                // ...
+            if(anim.GetBool("run") == true) {
+                anim.SetBool("run", false);
+                anim.SetTrigger("walk");
             }
+                
+            
         } else if (aggroSpoolUp > 0) { // keep following until aggro spool drop to 0
             dest = player.transform.position;
             aggroSpoolUp -= Time.deltaTime * 100f * aggroSpoolDownModifier;
@@ -94,16 +110,14 @@ public class CreepController : MonoBehaviour
             aggroSpoolUp = aggroSpoolMax;
             dest = player.transform.position;
             currState = states[3]; //WHEN TO AGGRO (2)
+            
+            
         }
-    }
-    // TODO dropAggroPoint add to dest list and clear after visit. add initdestlength, in Start() init. check if dest is out of it when pop
-
-    void Idle() {
-        
     }
 
     void Roam() {
         dest = destList[currDestIndex];
+        agent.speed = agentSpeedNormal;
         agent.SetDestination(dest);
         if(Vector3.Distance(watchPoint.transform.position, dest) < 1.5f) {
             StartCoroutine(IdleWhileRoaming());
@@ -120,6 +134,8 @@ public class CreepController : MonoBehaviour
     }
 
     IEnumerator IdleWhileRoaming() {
+        anim.ResetTrigger("walk");
+        anim.SetTrigger("idle");
         if(forgetExtraDests && currDestIndex > inputDestList.Length - 1) {
             destList.RemoveAt(currDestIndex); // clear player generated dest
         }
@@ -129,12 +145,23 @@ public class CreepController : MonoBehaviour
             aggroSpoolUp = 0f;
             currState = states[1];
         }
+        anim.ResetTrigger("idle");
+        anim.SetTrigger("walk");
         yield return null;
     }
 
     void Aggro() {
         StopCoroutine(IdleWhileRoaming());
+        anim.ResetTrigger("idle");
+        anim.ResetTrigger("walk");
+       
+        agent.speed = agentSpeedTurbo;
         agent.SetDestination(dest);
+        
+        if(anim.GetBool("run") == false) {
+            //anim.ResetTrigger("idle");
+           anim.SetBool("run", true);
+        }
     }
 
 }
