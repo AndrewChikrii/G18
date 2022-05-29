@@ -20,6 +20,9 @@ public class SC_FPSController : MonoBehaviour
 	Vector3 moveDirection = Vector3.zero;
 	float rotationX = 0;
 
+	RaycastHit hidingHit;
+    bool rayHidingShot;
+
 	[SerializeField] bool canMove = true;
 	[SerializeField] bool crouched = false;
 	Transform comCont;
@@ -49,7 +52,7 @@ public class SC_FPSController : MonoBehaviour
 		} else {
 			moveDirection.y = movementDirectionY;
 		}
-
+		// Crouch with ctrl
 		if(Input.GetKey(KeyCode.LeftControl)) {
 			crouched = true;
 			walkingSpeed = walkingSpeedTempo / 2f;
@@ -57,7 +60,7 @@ public class SC_FPSController : MonoBehaviour
 			//playerCamera.GetComponent<PRaycast>().FreezeAction(true);
 			characterController.height = Mathf.Lerp(characterController.height, 1.25f, 20f * Time.deltaTime);
 			characterController.center = new Vector3(0f, Mathf.Lerp(characterController.center.y, -0.375f, 20f * Time.deltaTime), 0f);
-			playerCamera.transform.localPosition = new Vector3(0f, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.1f, 20f * Time.deltaTime), 0f);
+			playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.1f, 20f * Time.deltaTime), 0f);
 			
 		} else if (characterController.height < 2f) {
 			crouched = false;
@@ -66,9 +69,26 @@ public class SC_FPSController : MonoBehaviour
 			//playerCamera.GetComponent<PRaycast>().FreezeAction(false);
 			characterController.height = Mathf.Lerp(characterController.height, 2f, 20f * Time.deltaTime);
 			characterController.center = new Vector3(0f, Mathf.Lerp(characterController.center.y, 0f, 20f * Time.deltaTime), 0f);
-			playerCamera.transform.localPosition = new Vector3(0f, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.7f, 20f * Time.deltaTime), 0f);
+			playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.7f, 20f * Time.deltaTime), 0f);
 		}
-		
+
+		//Check if hiding
+		Debug.DrawRay(transform.position, playerCamera.transform.TransformDirection(Vector3.forward) * 1f, Color.grey);
+        rayHidingShot = Physics.Raycast(transform.position, playerCamera.transform.TransformDirection(Vector3.forward), out hidingHit, 1f);
+
+		if(hidingHit.collider) {
+			//Look out with Q, E
+			if(Input.GetKey(KeyCode.Q)) {
+				playerCamera.transform.localPosition = new Vector3(Mathf.Lerp(playerCamera.transform.localPosition.x, -0.35f, 30f * Time.deltaTime), playerCamera.transform.localPosition.y, 0f);
+			} else if (Input.GetKey(KeyCode.E)) {
+				playerCamera.transform.localPosition = new Vector3(Mathf.Lerp(playerCamera.transform.localPosition.x, 0.35f, 30f * Time.deltaTime), playerCamera.transform.localPosition.y, 0f);
+			} else {
+				playerCamera.transform.localPosition = new Vector3(Mathf.Lerp(playerCamera.transform.localPosition.x, 0f, 20f * Time.deltaTime), playerCamera.transform.localPosition.y, 0f);
+			}
+		} else {
+			playerCamera.transform.localPosition = new Vector3(Mathf.Lerp(playerCamera.transform.localPosition.x, 0f, 20f * Time.deltaTime), playerCamera.transform.localPosition.y, 0f);
+		}
+
 		if (!characterController.isGrounded) {
 			moveDirection.y -= gravity * Time.deltaTime;
 		}

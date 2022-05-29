@@ -12,6 +12,7 @@ public class CreepController : MonoBehaviour
     [SerializeField] bool forgetExtraDests; 
     [SerializeField] float roamWaitTime = 3f; 
     [SerializeField] float aggroDist = 7.5f;
+    [SerializeField] float aggroAngle = 105f;
     [SerializeField] string currState;
     [SerializeField] int currDestIndex;
     [SerializeField] Vector3 dest;
@@ -87,7 +88,7 @@ public class CreepController : MonoBehaviour
         //Debug.Log(targetHit.collider.gameObject.name);
 
         if(targetHit.collider.gameObject.GetComponent<SC_FPSController>()) { //check if ray hit obj is player's cam
-            if ((cpAngle < 105f)) { //check angle player <=> creep
+            if ((cpAngle < aggroAngle)) { //check angle player <=> creep
                 aggroSpoolUp += Time.deltaTime * 100f * aggroSpoolUpModifier;
                 if(aggroSpoolUp >= aggroSpoolMax) {
                     aggroSpoolUp = aggroSpoolMax;
