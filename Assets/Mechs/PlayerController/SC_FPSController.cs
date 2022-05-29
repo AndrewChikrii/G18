@@ -25,6 +25,10 @@ public class SC_FPSController : MonoBehaviour
 
 	[SerializeField] bool canMove = true;
 	[SerializeField] bool crouched = false;
+
+	RaycastHit crouchHit;
+    bool rayCrouchShot;
+
 	Transform comCont;
 	void Start() {
 		characterController = GetComponent<CharacterController>();
@@ -52,6 +56,11 @@ public class SC_FPSController : MonoBehaviour
 		} else {
 			moveDirection.y = movementDirectionY;
 		}
+
+		// Check if crouched under obstacle
+		Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 1f, Color.grey);
+        rayCrouchShot = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out crouchHit, 1f);
+
 		// Crouch with ctrl
 		if(Input.GetKey(KeyCode.LeftControl)) {
 			crouched = true;
@@ -63,13 +72,17 @@ public class SC_FPSController : MonoBehaviour
 			playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.1f, 20f * Time.deltaTime), 0f);
 			
 		} else if (characterController.height < 2f) {
-			crouched = false;
-			walkingSpeed = walkingSpeedTempo;
-			runningSpeed = runningSpeedTempo;
-			//playerCamera.GetComponent<PRaycast>().FreezeAction(false);
-			characterController.height = Mathf.Lerp(characterController.height, 2f, 20f * Time.deltaTime);
-			characterController.center = new Vector3(0f, Mathf.Lerp(characterController.center.y, 0f, 20f * Time.deltaTime), 0f);
-			playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.7f, 20f * Time.deltaTime), 0f);
+			
+			if(!crouchHit.collider) {
+				crouched = false;
+				walkingSpeed = walkingSpeedTempo;
+				runningSpeed = runningSpeedTempo;
+				//playerCamera.GetComponent<PRaycast>().FreezeAction(false);
+				characterController.height = Mathf.Lerp(characterController.height, 2f, 20f * Time.deltaTime);
+				characterController.center = new Vector3(0f, Mathf.Lerp(characterController.center.y, 0f, 20f * Time.deltaTime), 0f);
+				playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, Mathf.Lerp(playerCamera.transform.localPosition.y, 0.7f, 20f * Time.deltaTime), 0f);
+			}
+			
 		}
 
 		//Check if hiding
