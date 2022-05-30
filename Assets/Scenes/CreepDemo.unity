@@ -1916,7 +1916,7 @@ Light:
     m_Strength: 1
     m_Bias: 3.82
     m_NormalBias: 0
-    m_NearPlane: 1.05
+    m_NearPlane: 0.08
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -6202,6 +6202,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4451569160405169976, guid: 3f4aacb69e62f2244b1cfe9050b22ad8, type: 3}
+      propertyPath: m_UsePipelineSettings
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4451569160405169977, guid: 3f4aacb69e62f2244b1cfe9050b22ad8, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -6245,6 +6249,14 @@ PrefabInstance:
     - target: {fileID: 4451569160405169977, guid: 3f4aacb69e62f2244b1cfe9050b22ad8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451569160405169978, guid: 3f4aacb69e62f2244b1cfe9050b22ad8, type: 3}
+      propertyPath: m_Shadows.m_Bias
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451569160405169978, guid: 3f4aacb69e62f2244b1cfe9050b22ad8, type: 3}
+      propertyPath: m_Shadows.m_NormalBias
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4451569160405169979, guid: 3f4aacb69e62f2244b1cfe9050b22ad8, type: 3}
       propertyPath: m_Name
