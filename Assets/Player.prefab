@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 235732889042433040}
   - component: {fileID: 235732889042433041}
   - component: {fileID: 235732889042433037}
-  - component: {fileID: 235732887859700834}
-  - component: {fileID: 235732887859700835}
+  - component: {fileID: 93741129}
+  - component: {fileID: 93741130}
+  - component: {fileID: 93741131}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -111,7 +112,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -135,7 +136,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dist: 3
   actionFrozen: 0
---- !u!114 &235732887859700834
+--- !u!114 &93741129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235732889042433042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: dce553730b1dd0d4da4994d9cce96f35, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 1
+--- !u!114 &93741130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,7 +170,7 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!114 &235732887859700835
+--- !u!114 &93741131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,7 +188,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 0
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
@@ -227,7 +245,7 @@ GameObject:
   - component: {fileID: 235732889669837148}
   - component: {fileID: 8741151055757870668}
   - component: {fileID: 1286536783}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
