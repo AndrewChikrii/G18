@@ -32,13 +32,13 @@ public class Rotatable : MonoBehaviour, IActivatable
             }
             else
             {
-                transform.Rotate(-rotationAngle * Time.deltaTime, 0f, 0f);
+                transform.Rotate(0f, 0f, -rotationAngle * Time.deltaTime);
                 rotationCounter += rotationAngle * Time.deltaTime;
             }
         }
         else {
             if(rotationCounter > 0 && !solved) {
-                transform.Rotate(rotationAngle * 3f * Time.deltaTime, 0f, 0f);
+                transform.Rotate(0f, 0f, rotationAngle * Time.deltaTime);
                 rotationCounter -= rotationAngle * 3f * Time.deltaTime;
             }
         }
