@@ -9917,6 +9917,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7419363946212646723, guid: 991170a79d48a7b4bafe7c95ad15c12d, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 7419363946212646724, guid: 991170a79d48a7b4bafe7c95ad15c12d, type: 3}
       propertyPath: m_Name
       value: LightUpPrefab
