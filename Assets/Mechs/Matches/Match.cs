@@ -6,8 +6,6 @@ public class Match : MonoBehaviour
 {
     [SerializeField] float burnTime = 2f;
 
-    RaycastHit surfaceHit;
-
     void Start()
     {
         Destroy(gameObject, burnTime);
