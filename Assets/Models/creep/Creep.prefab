@@ -567,10 +567,11 @@ MonoBehaviour:
   forgetExtraDests: 1
   roamWaitTime: 5
   aggroDist: 7.5
+  aggroAngle: 105
   currState: 
   currDestIndex: 0
   dest: {x: 0, y: 0, z: 0}
-  agentSpeedNormal: 2
+  agentSpeedNormal: 1.5
   agentSpeedTurbo: 3
   aggroSpoolUp: 0
   aggroSpoolMax: 100

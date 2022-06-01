@@ -89,6 +89,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_21f6fcaec8dd4d409c9ac7d9f06cdea4: 1.19
+    - Vector1_Fresnel: 1
+    - Vector1_Fresnel_mult: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -100,6 +102,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Fresnel_mult: 0.65851104
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
