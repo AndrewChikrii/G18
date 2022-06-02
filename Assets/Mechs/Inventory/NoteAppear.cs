@@ -13,11 +13,14 @@ public class NoteAppear : MonoBehaviour, IActivatable
         note.enabled = true;
     }
 
-    public void ActSecondary()
-    {
-        // Input.GetKey(KeyCode)
-        note.enabled = false;
-    }
+    public void ActSecondary() { }
 
+    public void Update()
+    {
+        if (Input.GetKey("escape") || Input.GetKey("mouse 1") || Input.GetKey("space"))
+        {
+            note.enabled = false;
+        }
+    }
     public void Deact() { }
 }

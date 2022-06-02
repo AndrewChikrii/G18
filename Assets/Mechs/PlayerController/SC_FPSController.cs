@@ -142,6 +142,4 @@ public class SC_FPSController : MonoBehaviour
     {
         canMove = false;
     }
-
-
 }
