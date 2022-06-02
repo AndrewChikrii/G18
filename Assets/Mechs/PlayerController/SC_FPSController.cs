@@ -24,7 +24,7 @@ public class SC_FPSController : MonoBehaviour
     RaycastHit hidingHit;
     bool rayHidingShot;
 
-    [SerializeField] bool canMove = true;
+    [SerializeField] public static bool canMove = true;
     [SerializeField] bool crouched = false;
 
     RaycastHit crouchHit;
@@ -137,11 +137,4 @@ public class SC_FPSController : MonoBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
-
-    public void FreezeMove()
-    {
-        canMove = false;
-    }
-
-
 }
