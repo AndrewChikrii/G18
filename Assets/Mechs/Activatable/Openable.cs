@@ -10,41 +10,53 @@ public class Openable : MonoBehaviour, IActivatable
     [SerializeField] bool locked;
     [SerializeField] float freezeTime = 1f;
 
-    void Start() {
-        if(opened) {
+    void Start()
+    {
+        if (opened)
+        {
             Open();
         }
     }
 
-    public void ActPrimary() {
-        if(!locked && !freezed) {
-            if(!opened) {
+    public void ActPrimary()
+    {
+        if (!locked && !freezed)
+        {
+            if (!opened)
+            {
                 Open();
-            } else {
+            }
+            else
+            {
                 Close();
             }
-        } 
-        else if(locked) {
+        }
+        else if (locked)
+        {
             Debug.Log("Door is locked");
         }
     }
-    public void ActSecondary() {}
-    public void Deact() {}
+    public void ActSecondary() { }
+    public void Deact() { }
 
-    void Open() {
+    void Open()
+    {
         StartCoroutine(Freeze());
-        if(!opened) {
+        if (!opened)
+        {
             opened = !opened;
         }
         rotator.GetComponent<DoorRotator>().SetRot(true);
     }
-    void Close() {
+    void Close()
+    {
         StartCoroutine(Freeze());
         opened = !opened;
         rotator.GetComponent<DoorRotator>().SetRot(false);
     }
 
-    IEnumerator Freeze() {
+    IEnumerator Freeze()
+    {
         freezed = true;
         yield return new WaitForSeconds(freezeTime);
         freezed = false;
