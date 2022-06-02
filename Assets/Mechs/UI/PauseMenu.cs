@@ -19,6 +19,7 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
+                pauseUI.SetActive(true);
                 Pause();
             }
         }
@@ -34,9 +35,8 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void Pause()
+    public static void Pause()
     {
-        pauseUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
         SC_FPSController.canMove = false;

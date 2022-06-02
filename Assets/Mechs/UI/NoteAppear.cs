@@ -6,20 +6,21 @@ using UnityEngine.UI;
 public class NoteAppear : MonoBehaviour, IActivatable
 {
 
-    [SerializeField] private Image note;
+    [SerializeField] private GameObject note;
 
     public void ActPrimary()
     {
-        note.enabled = true;
+        note.SetActive(true);
+        PauseMenu.Pause();
     }
 
     public void ActSecondary() { }
 
     public void Update()
     {
-        if (Input.GetKey("escape") || Input.GetKey("mouse 1") || Input.GetKey("space"))
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
-            note.enabled = false;
+            note.SetActive(false);
         }
     }
     public void Deact() { }
