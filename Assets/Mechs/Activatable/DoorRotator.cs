@@ -12,25 +12,31 @@ public class DoorRotator : MonoBehaviour
     [SerializeField] float openZ;
     [SerializeField] float speed = 1f;
 
-    void Start() {
+    void Start()
+    {
         xrot = transform.localRotation.x;
         yrot = transform.localRotation.y;
         zrot = transform.localRotation.z;
     }
 
-    void Update() {
+    void Update()
+    {
         transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(xrot, yrot, zrot), Time.deltaTime * speed);
     }
 
-    public void SetRot(bool rot) {
-        if(rot) {
-            xrot = xrot + openX;
-            yrot = yrot + openY;
-            zrot = zrot + openZ;
-        } else {
-            xrot = xrot - openX;
-            yrot = yrot - openY;
-            zrot = zrot - openZ;
+    public void SetRot(bool rot)
+    {
+        if (rot)
+        {
+            xrot += openX;
+            yrot += openY;
+            zrot += openZ;
+        }
+        else
+        {
+            xrot -= openX;
+            yrot -= openY;
+            zrot -= openZ;
         }
     }
 
