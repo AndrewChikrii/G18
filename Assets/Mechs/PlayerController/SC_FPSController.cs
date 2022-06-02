@@ -31,8 +31,12 @@ public class SC_FPSController : MonoBehaviour
     bool rayCrouchShot;
 
     Transform comCont;
+
+    public static Inventory inventory;
     void Start()
     {
+        inventory = new Inventory();
+
         characterController = GetComponent<CharacterController>();
         comCont = playerCamera.transform;
         // Lock cursor

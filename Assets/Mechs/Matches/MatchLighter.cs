@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class MatchLighter : MonoBehaviour
 {
-    Inventory inv;
+    Inventory inventory;
     [SerializeField] GameObject matchSpotPrefab;
     [SerializeField] GameObject matchPointPrefab;
     bool throwMatch = true;
     IEnumerator throwCor;
     GameObject playerCamera;
 
+    // Item matches;
+
     void Start()
     {
-        inv = GetComponent<Inventory>();
+        inventory = GetComponent<Inventory>();
         playerCamera = GameObject.Find("PlayerCamera");
+
+        // matches = inventory.GetItemList().Find(item => item.name == "Matches");
     }
 
     void Update()
     {
-        if (inv.matchesCount > 0)
+        if (inventory.MatchesCount() > 0)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -33,15 +37,11 @@ public class MatchLighter : MonoBehaviour
                 {
                     StopCoroutine(throwCor);
                     LightThrow();
-                    //Debug.Log("throw");
                 }
                 else
                 {
                     StopCoroutine(throwCor);
-
-                    //Debug.Log("up");
                 }
-
             }
         }
 
@@ -49,14 +49,14 @@ public class MatchLighter : MonoBehaviour
 
     void LightUp()
     {
-        inv.RemoveFromInv(1);
+        inventory.RemoveItem(inventory.GetItemList().Find(item => item.name == "Matches"));
         GameObject match = Instantiate(matchSpotPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
         match.transform.SetParent(gameObject.transform);
     }
 
     void LightThrow()
     {
-        inv.RemoveFromInv(1);
+        inventory.RemoveItem(inventory.GetItemList().Find(item => item.name == "Matches"));
         GameObject match = Instantiate(matchPointPrefab, new Vector3(transform.position.x, transform.position.y + 1.25f, transform.position.z), transform.rotation);
         match.GetComponent<Rigidbody>().AddForce(playerCamera.transform.TransformDirection(Vector3.forward) * 25f);
     }
