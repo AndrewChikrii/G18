@@ -8,6 +8,7 @@ public class Openable : MonoBehaviour, IActivatable
     [SerializeField] bool opened;
     [SerializeField] bool freezed;
     [SerializeField] bool locked;
+    [SerializeField] Item key;
     [SerializeField] float freezeTime = 1f;
 
     void Start()
@@ -31,9 +32,24 @@ public class Openable : MonoBehaviour, IActivatable
                 Close();
             }
         }
-        else if (locked)
+        else if (locked && !key)
         {
             Debug.Log("Door is locked");
+        }
+        else
+        {
+            Item doorKey = SC_FPSController.inventory.GetItemList().Find(item => item.name == key.name);
+            if (doorKey)
+            {
+                if (!opened)
+                {
+                    Open();
+                }
+                else
+                {
+                    Close();
+                }
+            }
         }
     }
     public void ActSecondary() { }

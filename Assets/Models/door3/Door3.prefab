@@ -61,6 +61,7 @@ MonoBehaviour:
   opened: 0
   freezed: 0
   locked: 0
+  key: {fileID: 0}
   freezeTime: 1
 --- !u!1 &7970201323626789168
 GameObject:
@@ -217,6 +218,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openX: 0
-  openY: -110
+  openY: -90
   openZ: 0
   speed: 1

@@ -11,7 +11,7 @@ public class Match : MonoBehaviour
         Destroy(gameObject, burnTime);
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnCollision(Collision collision)
     {
         if (collision.gameObject.name == "Water")
         {

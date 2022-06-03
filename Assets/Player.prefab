@@ -243,11 +243,11 @@ GameObject:
   - component: {fileID: 235732889669837145}
   - component: {fileID: 235732889669837147}
   - component: {fileID: 235732889669837148}
-  - component: {fileID: 8741151055757870668}
-  - component: {fileID: 1286536783}
+  - component: {fileID: 1368798375}
+  - component: {fileID: 1368798376}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -351,9 +351,8 @@ MonoBehaviour:
   jumpSpeed: 6
   playerCamera: {fileID: 235732889042433039}
   lookSpeed: 2
-  canMove: 1
   crouched: 0
---- !u!114 &8741151055757870668
+--- !u!114 &1368798375
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -365,8 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6a27d7e700e1149ba265433cc690b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchesCount: 100
---- !u!114 &1286536783
+--- !u!114 &1368798376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
