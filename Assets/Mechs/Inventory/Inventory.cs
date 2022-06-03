@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    /* [SerializeField] public int matchesCount;
+
+    public void AddToInv(int count) {
+        matchesCount += count;
+    }
+
+    public void RemoveFromInv(int count) {
+        if(matchesCount > 0) {
+            matchesCount -= count;
+        }
+    }*/
+    
     public List<Item> itemList;
 
     public Inventory()
@@ -54,4 +66,5 @@ public class Inventory : MonoBehaviour
     {
         return itemList;
     }
+    
 }

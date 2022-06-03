@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 235732889042433040}
   - component: {fileID: 235732889042433041}
   - component: {fileID: 235732889042433037}
-  - component: {fileID: 93741129}
   - component: {fileID: 93741130}
   - component: {fileID: 93741131}
   m_Layer: 0
@@ -136,23 +135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dist: 3
   actionFrozen: 0
---- !u!114 &93741129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235732889042433042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: dce553730b1dd0d4da4994d9cce96f35, type: 2}
-  isGlobal: 1
-  blendDistance: 0
-  weight: 1
-  priority: 1
 --- !u!114 &93741130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +227,7 @@ GameObject:
   - component: {fileID: 235732889669837148}
   - component: {fileID: 1368798375}
   - component: {fileID: 1368798376}
+  - component: {fileID: 7266627574682421317}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -264,6 +247,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 235732889042433038}
+  - {fileID: 2256399310470307396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -346,8 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff93d4f696d9c045869aef38c285438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 3
-  runningSpeed: 4.5
+  walkingSpeed: 2.5
+  runningSpeed: 3.5
   jumpSpeed: 6
   playerCamera: {fileID: 235732889042433039}
   lookSpeed: 2
@@ -364,6 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6a27d7e700e1149ba265433cc690b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemList: []
 --- !u!114 &1368798376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +363,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   matchSpotPrefab: {fileID: 7419363946212646724, guid: 991170a79d48a7b4bafe7c95ad15c12d, type: 3}
   matchPointPrefab: {fileID: 7419363946212646724, guid: 318c14c21c4257d448df01a51ed5a0e5, type: 3}
+--- !u!114 &7266627574682421317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235732889669837149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679a5589bfc5a4749a8745946eaab135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dist: 0
 --- !u!1 &235732889738269827
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,3 +406,51 @@ Transform:
   m_Father: {fileID: 235732889042433038}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2256399310470307398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2256399310470307396}
+  - component: {fileID: 2256399310470307399}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2256399310470307396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256399310470307398}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.625382, y: 2.0284383, z: -7.5089655}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 235732889669837143}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2256399310470307399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256399310470307398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: ced6d874f9e637b4e944c9bb8abbb2c3, type: 2}

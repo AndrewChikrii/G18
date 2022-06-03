@@ -13,7 +13,7 @@ public class CreepController : MonoBehaviour
     [SerializeField] float roamWaitTime = 3f;
     [SerializeField] float aggroDist = 7.5f;
     [SerializeField] float aggroAngle = 105f;
-    [SerializeField] string currState;
+    public string currState;
     [SerializeField] int currDestIndex;
     [SerializeField] Vector3 dest;
     string[] states = { "idle", "roaming", "sus", "aggro" };
@@ -24,7 +24,7 @@ public class CreepController : MonoBehaviour
     RaycastHit targetHit;
     bool rayTargetShot;
     Color stateColor = Color.white;
-    [SerializeField] float aggroSpoolUp = 0f;
+    public float aggroSpoolUp = 0f;
     [SerializeField] float aggroSpoolMax = 100f;
     [SerializeField] float aggroSpoolUpModifier = 0.5f;
     [SerializeField] float aggroSpoolDownModifier = 0.25f;
