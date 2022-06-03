@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private List<Item> itemList;
+    public List<Item> itemList;
 
     public Inventory()
     {
@@ -13,8 +13,12 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        item.isStackable = !item.isStackable;
-        if (!item.isStackable)
+        if (!item.isStackable || itemList.Count == 0)
+        {
+            itemList.Add(item);
+
+        }
+        else
         {
             foreach (Item invItem in itemList)
             {
@@ -28,16 +32,11 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            itemList.Add(item);
-        }
     }
 
     public int? MatchesCount()
     {
-        Item matches = itemList.Find(item => item.name == "Matches");
-        return matches?.amount;
+        return itemList.Find(item => item.name == "Matches")?.amount;
     }
 
     public void RemoveItem(Item item)

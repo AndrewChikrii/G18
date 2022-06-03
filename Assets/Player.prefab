@@ -243,9 +243,11 @@ GameObject:
   - component: {fileID: 235732889669837145}
   - component: {fileID: 235732889669837147}
   - component: {fileID: 235732889669837148}
+  - component: {fileID: 1368798375}
+  - component: {fileID: 1368798376}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,6 +352,32 @@ MonoBehaviour:
   playerCamera: {fileID: 235732889042433039}
   lookSpeed: 2
   crouched: 0
+--- !u!114 &1368798375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235732889669837149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6a27d7e700e1149ba265433cc690b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1368798376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235732889669837149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05cbbf50c0417d4cae330dbddfd72d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matchSpotPrefab: {fileID: 7419363946212646724, guid: 991170a79d48a7b4bafe7c95ad15c12d, type: 3}
+  matchPointPrefab: {fileID: 7419363946212646724, guid: 318c14c21c4257d448df01a51ed5a0e5, type: 3}
 --- !u!1 &235732889738269827
 GameObject:
   m_ObjectHideFlags: 0

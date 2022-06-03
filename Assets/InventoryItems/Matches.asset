@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a195e0bc18b6ab4c8a34adcb6a0f17f, type: 3}
   m_Name: Matches
   m_EditorClassIdentifier: 
-  name: 
-  itemType: 0
-  description: 
-  amount: 0
+  name: Matches
+  itemType: 1
+  description: Waterproof matches
+  amount: 6
+  isStackable: 1

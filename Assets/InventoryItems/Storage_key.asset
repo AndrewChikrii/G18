@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a195e0bc18b6ab4c8a34adcb6a0f17f, type: 3}
   m_Name: Storage_key
   m_EditorClassIdentifier: 
-  name: 
+  name: Storage_key
   itemType: 0
-  description: 
-  amount: 0
+  description: Old rusty key to the storage
+  amount: 1
+  isStackable: 0
