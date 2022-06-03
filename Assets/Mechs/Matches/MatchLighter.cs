@@ -38,7 +38,6 @@ public class MatchLighter : MonoBehaviour
                 }
             }
         }
-
     }
 
     void LightUp()

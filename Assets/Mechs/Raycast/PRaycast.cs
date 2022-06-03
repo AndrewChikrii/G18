@@ -15,44 +15,60 @@ public class PRaycast : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * dist, Color.green);
         rayShot = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, dist);
 
-        if(hit.collider) {
-            
-            if(Input.GetKeyDown(KeyCode.Mouse0) && !actionFrozen) {
+        if (hit.collider)
+        {
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !actionFrozen)
+            {
                 Component[] hitComponents = hit.collider.gameObject.GetComponents(typeof(IActivatable));
-                if (hitComponents.Length > 0) {
+                if (hitComponents.Length > 0)
+                {
                     colInterface = hitComponents[0] as IActivatable;
                     colInterface.ActPrimary();
-                } else {
+                }
+                else
+                {
                     CancelAction();
                 }
             }
-            if(Input.GetKeyDown(KeyCode.Mouse1)) {
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
                 Component[] hitComponents = hit.collider.gameObject.GetComponents(typeof(IActivatable));
-                if (hitComponents.Length > 0) {
+                if (hitComponents.Length > 0)
+                {
                     colInterface = hitComponents[0] as IActivatable;
                     colInterface.ActSecondary();
-                } else {
+                }
+                else
+                {
                     CancelAction();
                 }
             }
-            if((hit.collider.gameObject.GetComponent<IActivatable>() == null || actionFrozen)) {
+            if ((hit.collider.gameObject.GetComponent<IActivatable>() == null || actionFrozen))
+            {
                 CancelAction();
             }
-        } else {
+        }
+        else
+        {
             CancelAction();
         }
 
-        if(Input.GetKeyUp(KeyCode.Mouse0)) {
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
             CancelAction();
         }
     }
 
-    public void FreezeAction(bool f) {
+    public void FreezeAction(bool f)
+    {
         actionFrozen = f;
     }
 
-    public void CancelAction() {
-        if(colInterface != null) {
+    public void CancelAction()
+    {
+        if (colInterface != null)
+        {
             colInterface.Deact();
             colInterface = null;
         }

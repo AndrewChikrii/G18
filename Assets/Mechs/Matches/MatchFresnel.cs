@@ -14,7 +14,6 @@ public class MatchFresnel : MonoBehaviour
         rend = gameObject.GetComponent<Renderer>();
     }
 
-
     void Update()
     {
         dist = Vector3.Distance(player.transform.position, transform.position);

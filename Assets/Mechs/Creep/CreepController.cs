@@ -37,7 +37,7 @@ public class CreepController : MonoBehaviour
     void Start()
     {
         anim = this.gameObject.transform.GetChild(0).GetComponent<Animator>();
-        currState = states[1]; //0
+        currState = states[1];
         agent = GetComponent<NavMeshAgent>();
         agent.speed = agentSpeedNormal;
         player = GameObject.Find("PlayerCamera");
@@ -55,24 +55,17 @@ public class CreepController : MonoBehaviour
 
         switch (currState)
         {
-            case "idle": //0
+            case "idle":
                 stateColor = Color.blue;
-
-                //anim.SetTrigger("lookingAround");
-
-
                 break;
-            case "roaming": //1
+            case "roaming":
                 stateColor = Color.white;
-
-                //anim.SetTrigger("walking");
-
                 Roam();
                 break;
-            case "sus": //2
+            case "sus":
                 stateColor = Color.yellow;
                 break;
-            case "aggro": //3
+            case "aggro":
                 stateColor = Color.red;
                 Aggro();
                 break;
@@ -86,23 +79,18 @@ public class CreepController : MonoBehaviour
         Graphics.Blit(lightCheckTexture, tmpTexture);
         RenderTexture previous = RenderTexture.active;
         RenderTexture.active = tmpTexture;
-
         Texture2D temp2DTexture = new Texture2D(lightCheckTexture.width, lightCheckTexture.height);
         temp2DTexture.ReadPixels(new Rect(0, 0, tmpTexture.width, tmpTexture.height), 0, 0);
         temp2DTexture.Apply();
         RenderTexture.active = previous;
         RenderTexture.ReleaseTemporary(tmpTexture);
-
         Color32[] colors = temp2DTexture.GetPixels32();
         Destroy(temp2DTexture);
-
         lightLevel = 0;
-
         for (int i = 0; i < colors.Length; i++)
         {
             lightLevel += ((0.2126f * colors[i].r) + (0.7152f * colors[i].g) + (0.0722f * colors[i].b)) / 10000;
         }
-
         if (lightLevel > 1)
         {
             aggroSpoolUpModifier = 1f;
@@ -126,46 +114,39 @@ public class CreepController : MonoBehaviour
         }
         catch { }
 
-        //Debug.Log(targetHit.collider.gameObject.name);
-
         if (targetHit.collider.gameObject.GetComponent<SC_FPSController>())
-        { //check if ray hit obj is player's cam
+        {
             if ((cpAngle < aggroAngle))
-            { //check angle player <=> creep
+            {
                 aggroSpoolUp += Time.deltaTime * 100f * aggroSpoolUpModifier;
                 if (aggroSpoolUp >= aggroSpoolMax)
                 {
                     aggroSpoolUp = aggroSpoolMax;
-                    currState = states[3]; //WHEN TO AGGRO (1)
+                    currState = states[3];
                     dest = player.transform.position;
-
                 }
             }
         }
         else if (currState == states[3] && aggroSpoolUp <= 0f)
-        { // WHEN TO DEAGGRO
-            destList.Add(transform.position); //add last pos where seen player as dest for future
+        {
+            destList.Add(transform.position);
             currState = states[1];
             if (anim.GetBool("run") == true)
             {
                 anim.SetBool("run", false);
                 anim.SetTrigger("walk");
             }
-
-
         }
         else if (aggroSpoolUp > 0)
-        { // keep following until aggro spool drop to 0
+        {
             dest = player.transform.position;
             aggroSpoolUp -= Time.deltaTime * 100f * aggroSpoolDownModifier;
         }
         if (cpDist < aggroDist)
-        { //check dist player <=> creep 
+        {
             aggroSpoolUp = aggroSpoolMax;
             dest = player.transform.position;
-            currState = states[3]; //WHEN TO AGGRO (2)
-
-
+            currState = states[3];
         }
     }
 
@@ -201,7 +182,7 @@ public class CreepController : MonoBehaviour
         anim.SetTrigger("idle");
         if (forgetExtraDests && currDestIndex > inputDestList.Length - 1)
         {
-            destList.RemoveAt(currDestIndex); // clear player generated dest
+            destList.RemoveAt(currDestIndex);
         }
         currState = states[0];
         yield return new WaitForSeconds(roamWaitTime);
@@ -226,7 +207,6 @@ public class CreepController : MonoBehaviour
 
         if (anim.GetBool("run") == false)
         {
-            //anim.ResetTrigger("idle");
             anim.SetBool("run", true);
         }
     }

@@ -12,39 +12,39 @@ public class Rotatable : MonoBehaviour, IActivatable
     public void ActPrimary()
     {
         isRotating = true;
-        //Debug.Log("Rotating a " + gameObject.name);
     }
-    public void ActSecondary() {}
+    public void ActSecondary() { }
     public void Deact()
     {
         isRotating = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isRotating)
         {
-            if (rotationCounter >= maxRotation)
-            {
-                isRotating = false;
-                solved = true;
-                //Debug.Log("Rot is max");
-            }
-            else
+            if (rotationCounter < maxRotation)
             {
                 transform.Rotate(0f, 0f, -rotationAngle * Time.deltaTime);
                 rotationCounter += rotationAngle * Time.deltaTime;
+                return;
             }
+            isRotating = false;
+            solved = true;
+            this.enabled = false;
         }
-        else {
-            if(rotationCounter > 0 && !solved) {
+        else
+        {
+            if (rotationCounter > 0 && !solved)
+            {
                 transform.Rotate(0f, 0f, rotationAngle * Time.deltaTime);
                 rotationCounter -= rotationAngle * 3f * Time.deltaTime;
             }
         }
     }
 
-    public float ReturnRot() {
+    public float ReturnRot()
+    {
         return rotationCounter / 720f;
     }
 }

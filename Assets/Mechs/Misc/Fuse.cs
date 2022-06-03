@@ -27,6 +27,8 @@ public class Fuse : MonoBehaviour
             Destroy(fuse.GetComponent<Rigidbody>());
 
             fuse.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+
+            this.enabled = false;
         }
     }
 }
