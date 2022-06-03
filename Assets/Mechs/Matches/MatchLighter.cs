@@ -17,7 +17,6 @@ public class MatchLighter : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(SC_FPSController.inventory.MatchesCount());
         if (SC_FPSController.inventory.MatchesCount() > 0)
         {
             if (Input.GetKeyDown(KeyCode.F))

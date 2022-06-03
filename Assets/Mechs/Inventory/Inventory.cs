@@ -13,22 +13,23 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        if (!item.isStackable || itemList.Count == 0)
+        var itemInstance = GameObject.Instantiate(item);
+        if (!itemInstance.isStackable || itemList.Count == 0)
         {
-            itemList.Add(item);
+            itemList.Add(itemInstance);
 
         }
         else
         {
             foreach (Item invItem in itemList)
             {
-                if (invItem.name == item.name)
+                if (invItem.name == itemInstance.name)
                 {
-                    invItem.amount += item.amount;
+                    invItem.amount += itemInstance.amount;
                 }
                 else
                 {
-                    itemList.Add(item);
+                    itemList.Add(itemInstance);
                 }
             }
         }
@@ -43,7 +44,7 @@ public class Inventory : MonoBehaviour
     {
         Item searchedItem = itemList.Find(i => i.name == item.name);
         searchedItem.amount -= 1;
-        if (searchedItem.amount == 0)
+        if (searchedItem.amount == 0 && !searchedItem.isStackable)
         {
             itemList.Remove(searchedItem);
         }
