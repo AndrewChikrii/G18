@@ -50,6 +50,10 @@ public class Openable : MonoBehaviour, IActivatable
                     Close();
                 }
             }
+            else
+            {
+                Debug.Log("Door is locked");
+            }
         }
     }
     public void ActSecondary() { }
