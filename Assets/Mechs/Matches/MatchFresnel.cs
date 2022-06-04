@@ -12,6 +12,7 @@ public class MatchFresnel : MonoBehaviour
     {
         player = GameObject.Find("Player");
         rend = gameObject.GetComponent<Renderer>();
+        rend.sharedMaterial.SetFloat("_Fresnel_mult", 0f);
     }
 
     void Update()

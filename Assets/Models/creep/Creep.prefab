@@ -674,7 +674,7 @@ MonoBehaviour:
   useRandomDest: 0
   forgetExtraDests: 1
   roamWaitTime: 5
-  aggroDist: 7.5
+  aggroDist: 5
   aggroAngle: 105
   currState: 
   currDestIndex: 0

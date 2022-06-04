@@ -7,9 +7,9 @@ using UnityEngine.Rendering;
 
 public class SC_FPSController : MonoBehaviour
 {
-    [SerializeField] float walkingSpeed = 3f;
+    public float walkingSpeed = 2.5f;
     float walkingSpeedTempo;
-    [SerializeField] float runningSpeed = 4.5f;
+    public float runningSpeed = 3.5f;
     float runningSpeedTempo;
     [SerializeField] float jumpSpeed = 8.0f;
     float gravity = 20.0f;

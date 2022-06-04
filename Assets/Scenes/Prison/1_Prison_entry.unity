@@ -300,7 +300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970201323626789169, guid: 40a132ba66cc0d54eb62df96065ed3d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.678
+      value: -23.877
       objectReference: {fileID: 0}
     - target: {fileID: 7970201323626789169, guid: 40a132ba66cc0d54eb62df96065ed3d9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1577,6 +1577,7 @@ MonoBehaviour:
   opened: 0
   freezed: 0
   locked: 1
+  key: {fileID: 0}
   freezeTime: 1
 --- !u!65 &71056411
 BoxCollider:
@@ -11985,6 +11986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Creep
       objectReference: {fileID: 0}
+    - target: {fileID: 3562343232946507537, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3562343232946507549, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -16810,7 +16815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970201323626789169, guid: 40a132ba66cc0d54eb62df96065ed3d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.568363
+      value: 27.753
       objectReference: {fileID: 0}
     - target: {fileID: 7970201323626789169, guid: 40a132ba66cc0d54eb62df96065ed3d9, type: 3}
       propertyPath: m_LocalRotation.w
