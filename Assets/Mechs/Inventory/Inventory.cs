@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    /* [SerializeField] public int matchesCount;
-
-    public void AddToInv(int count) {
-        matchesCount += count;
-    }
-
-    public void RemoveFromInv(int count) {
-        if(matchesCount > 0) {
-            matchesCount -= count;
-        }
-    }*/
-    
     public List<Item> itemList;
 
     public Inventory()
@@ -29,20 +17,18 @@ public class Inventory : MonoBehaviour
         if (!itemInstance.isStackable || itemList.Count == 0)
         {
             itemList.Add(itemInstance);
-
+            return;
         }
-        else
+
+        foreach (Item invItem in itemList)
         {
-            foreach (Item invItem in itemList)
+            if (invItem.name == itemInstance.name)
             {
-                if (invItem.name == itemInstance.name)
-                {
-                    invItem.amount += itemInstance.amount;
-                }
-                else
-                {
-                    itemList.Add(itemInstance);
-                }
+                invItem.amount += itemInstance.amount;
+            }
+            else
+            {
+                itemList.Add(itemInstance);
             }
         }
     }
@@ -56,15 +42,10 @@ public class Inventory : MonoBehaviour
     {
         Item searchedItem = itemList.Find(i => i.name == item.name);
         searchedItem.amount -= 1;
-        if (searchedItem.amount == 0 && !searchedItem.isStackable)
-        {
-            itemList.Remove(searchedItem);
-        }
     }
 
     public List<Item> GetItemList()
     {
         return itemList;
     }
-    
 }

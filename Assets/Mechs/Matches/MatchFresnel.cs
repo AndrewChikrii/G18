@@ -15,7 +15,6 @@ public class MatchFresnel : MonoBehaviour
         rend.sharedMaterial.SetFloat("_Fresnel_mult", 0f);
     }
 
-
     void Update()
     {
         dist = Vector3.Distance(player.transform.position, transform.position);

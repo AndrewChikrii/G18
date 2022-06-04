@@ -13,6 +13,6 @@ public class Item : ScriptableObject
     public new string name;
     public ItemType itemType;
     public string description;
-    public int amount = 1;
-    public bool isStackable = false;
+    public int amount;
+    public bool isStackable;
 }

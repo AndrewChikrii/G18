@@ -21,40 +21,21 @@ public class Openable : MonoBehaviour, IActivatable
 
     public void ActPrimary()
     {
-        if (!locked && !freezed)
+        if (freezed) return;
+        if (!locked)
         {
-            if (!opened)
-            {
-                Open();
-            }
-            else
-            {
-                Close();
-            }
+            OpenOrClose();
+            return;
         }
-        else if (locked && !key)
+
+        Item doorKey = SC_FPSController.inventory.GetItemList().Find(item => item.name == key?.name);
+        if (key && doorKey)
         {
-            Debug.Log("Door is locked");
+            locked = false;
+            Debug.Log("Door unlocked");
+            return;
         }
-        else
-        {
-            Item doorKey = SC_FPSController.inventory.GetItemList().Find(item => item.name == key.name);
-            if (doorKey)
-            {
-                if (!opened)
-                {
-                    Open();
-                }
-                else
-                {
-                    Close();
-                }
-            }
-            else
-            {
-                Debug.Log("Door is locked");
-            }
-        }
+        Debug.Log("Door is locked");
     }
     public void ActSecondary() { }
     public void Deact() { }
@@ -82,8 +63,15 @@ public class Openable : MonoBehaviour, IActivatable
         freezed = false;
     }
 
+    void OpenOrClose()
+    {
+        if (!opened)
+        {
+            Open();
+        }
+        else
+        {
+            Close();
+        }
+    }
 }
-/*
-    assign to obj with collider! door panel etc
-    inside of rotator
-*/

@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class WheelNest : MonoBehaviour
 {
-
     [SerializeField] GameObject wheel;
 
     [SerializeField] float dist;
-
-    private bool questDone;
 
     void FixedUpdate()
     {
         dist = Vector3.Distance(wheel.transform.position, transform.position);
 
-        if (dist < 0.5f && !questDone)
+        if (dist < 0.5f)
         {
-            questDone = true;
-
             wheel.transform.SetParent(transform);
 
             GameObject.Find("PlayerCamera").GetComponent<PRaycast>().CancelAction();
@@ -30,6 +25,8 @@ public class WheelNest : MonoBehaviour
             wheel.GetComponent<Rotatable>().enabled = true;
 
             wheel.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+
+            this.enabled = false;
         }
     }
 }
