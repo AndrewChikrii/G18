@@ -26,7 +26,7 @@ public class MatchLighter : MonoBehaviour
     {
         matchesCount.color = new Color(matchesCount.color.r, matchesCount.color.g, matchesCount.color.b,
                 Mathf.Lerp(matchesCount.color.a, maxAlpha, 5f * Time.deltaTime));
-        if (SC_FPSController.inventory.MatchesCount() < 1)
+        if (SC_FPSController.inventory.MatchesCount() == null || SC_FPSController.inventory.MatchesCount() < 1)
         {
             maxAlpha = 0;
             return;

@@ -41,7 +41,11 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(Item item)
     {
         Item searchedItem = itemList.Find(i => i.name == item.name);
-        searchedItem.amount -= 1;
+        try
+        {
+            searchedItem.amount -= 1;
+        }
+        catch { }
     }
 
     public List<Item> GetItemList()
