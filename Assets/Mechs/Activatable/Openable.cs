@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Openable : MonoBehaviour, IActivatable
 {
@@ -11,8 +12,11 @@ public class Openable : MonoBehaviour, IActivatable
     [SerializeField] Item key;
     [SerializeField] float freezeTime = 1f;
 
+    HintDisplay hintDisplay;
+
     void Start()
     {
+        hintDisplay = GameObject.Find("Canvas").GetComponent<HintDisplay>();
         if (opened)
         {
             Open();
@@ -32,10 +36,12 @@ public class Openable : MonoBehaviour, IActivatable
         if (key && doorKey)
         {
             locked = false;
-            Debug.Log("Door unlocked");
+            hintDisplay.interaction.text = "Door unlocked";
+            StartCoroutine(hintDisplay.HintCoroutine());
             return;
         }
-        Debug.Log("Door is locked");
+        hintDisplay.interaction.text = "Door is locked";
+        StartCoroutine(hintDisplay.HintCoroutine());
     }
     public void ActSecondary() { }
     public void Deact() { }
