@@ -31,7 +31,8 @@ public class Openable : MonoBehaviour, IActivatable
         Item doorKey = SC_FPSController.inventory.GetItemList().Find(item => item.name == key?.name);
         if (key && doorKey)
         {
-            OpenOrClose();
+            locked = false;
+            Debug.Log("Door unlocked");
             return;
         }
         Debug.Log("Door is locked");
