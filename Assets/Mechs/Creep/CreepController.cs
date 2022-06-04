@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class CreepController : MonoBehaviour
 {
+    public bool freezed;
     [SerializeField] GameObject[] inputDestList;
     [SerializeField] List<Vector3> destList;
     [SerializeField] GameObject watchPoint;
@@ -33,13 +34,14 @@ public class CreepController : MonoBehaviour
 
     public RenderTexture lightCheckTexture;
     public float lightLevel;
+    float spum;
 
     void Start()
     {
         anim = this.gameObject.transform.GetChild(0).GetComponent<Animator>();
         currState = states[1];
+        spum = aggroSpoolUpModifier;
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = agentSpeedNormal;
         player = GameObject.Find("PlayerCamera");
         foreach (GameObject g in inputDestList)
         {
@@ -50,9 +52,15 @@ public class CreepController : MonoBehaviour
     void FixedUpdate()
     {
         Debug.DrawRay(watchPoint.transform.position, watchPoint.transform.TransformDirection(Vector3.forward) * 10f, Color.grey);
-
+        
+        if(freezed)
+        {
+            agent.speed = 0f;
+            return;
+        }
+        
         HandleStates();
-
+        
         switch (currState)
         {
             case "idle":
@@ -91,13 +99,14 @@ public class CreepController : MonoBehaviour
         {
             lightLevel += ((0.2126f * colors[i].r) + (0.7152f * colors[i].g) + (0.0722f * colors[i].b)) / 10000;
         }
+        
         if (lightLevel > 1)
         {
-            aggroSpoolUpModifier = 1f;
+            aggroSpoolUpModifier = spum;
         }
         else
         {
-            aggroSpoolUpModifier = 0.5f;
+            aggroSpoolUpModifier = spum / 2f;
         }
 
         Vector3 cpDir = (player.transform.position - watchPoint.transform.position).normalized;

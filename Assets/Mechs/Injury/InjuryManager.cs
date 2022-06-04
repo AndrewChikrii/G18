@@ -15,6 +15,7 @@ public class InjuryManager : MonoBehaviour
     FilmGrain grain;
     DepthOfField dof;
     ColorAdjustments ca;
+    MotionBlur mb;
 
     [SerializeField] float dist;
     float playerWalkSpeed;
@@ -34,7 +35,6 @@ public class InjuryManager : MonoBehaviour
         {
             Destroy(this);
         }
-
     }
 
     void Update()
@@ -64,9 +64,12 @@ public class InjuryManager : MonoBehaviour
         }
         if (volume.profile.TryGet<ColorAdjustments>(out ca))
         {
-            ca.contrast.Override(Mathf.Lerp(ca.contrast.value, creep.aggroSpoolUp * 0.25f, 15f * Time.deltaTime));
-            //ca.contrast.Override(creep.aggroSpoolUp * 0.98f); 
-            ca.postExposure.Override(creep.aggroSpoolUp * -0.005f);
+            ca.contrast.Override(Mathf.Lerp(ca.contrast.value, creep.aggroSpoolUp * 0.3f, 15f * Time.deltaTime));
+            ca.postExposure.Override(creep.aggroSpoolUp * 0.015f);
+        }
+        if (volume.profile.TryGet<MotionBlur>(out mb))
+        {
+            mb.intensity.Override(Mathf.Lerp(mb.intensity.value, creep.aggroSpoolUp * 0.03f, 15f * Time.deltaTime));
         }
 
         if (creep.aggroSpoolUp >= 100f)
