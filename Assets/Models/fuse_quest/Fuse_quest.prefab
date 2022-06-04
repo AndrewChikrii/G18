@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -712303578403282780, guid: 7f19b1ccc70eec040843612b22f2e5d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -53.457672
+      value: -52.987495
       objectReference: {fileID: 0}
     - target: {fileID: -712303578403282780, guid: 7f19b1ccc70eec040843612b22f2e5d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -712303578403282780, guid: 7f19b1ccc70eec040843612b22f2e5d1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -28.349545
+      value: -28.189167
       objectReference: {fileID: 0}
     - target: {fileID: -712303578403282780, guid: 7f19b1ccc70eec040843612b22f2e5d1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -191,6 +191,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7855757234698759519, guid: 7f19b1ccc70eec040843612b22f2e5d1, type: 3}
   m_PrefabInstance: {fileID: 3386948424573281379}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &5530506956468296684
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561148177053326072}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.018439084, y: 0.036075007, z: 0.06283477}
+  m_Center: {x: -0.0010231766, y: -0.00089073787, z: -0.00022515636}
 --- !u!114 &542166487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,19 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuse: {fileID: 4757378116105455932}
   dist: 0
---- !u!65 &5530506956468296684
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561148177053326072}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.029965898, y: 0.036075007, z: 0.06283477}
-  m_Center: {x: -0.0067865746, y: -0.00089073787, z: -0.00022515636}
+  item: {fileID: 11400000, guid: 49edfe2e70936894ebfb16e08bb1e76c, type: 2}
 --- !u!54 &542166486
 Rigidbody:
   m_ObjectHideFlags: 0

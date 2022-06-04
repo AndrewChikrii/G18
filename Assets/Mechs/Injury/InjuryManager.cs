@@ -8,25 +8,21 @@ public class InjuryManager : MonoBehaviour
 {
     Volume volume;
     CreepController creep;
-
     SC_FPSController playerCont;
-
     Vignette vig;
     FilmGrain grain;
     DepthOfField dof;
     ColorAdjustments ca;
     MotionBlur mb;
-
     [SerializeField] float dist;
     float playerWalkSpeed;
     float playerRunSpeed;
-
     RaycastHit upHit;
     bool rayUpShot;
 
     void Start()
     {
-        if(GameObject.Find("Creep")) 
+        if (GameObject.Find("Creep"))
         {
             creep = GameObject.Find("Creep").GetComponent<CreepController>();
         }
@@ -38,7 +34,7 @@ public class InjuryManager : MonoBehaviour
 
     void Update()
     {
-        if(creep) 
+        if (creep)
         {
             dist = Vector3.Distance(transform.position, creep.transform.position);
 
@@ -84,22 +80,20 @@ public class InjuryManager : MonoBehaviour
                 playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed, 2f * Time.deltaTime);
             }
         }
-        else 
+        else
         {
             dist = 100f;
         }
-        
+
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 1.25f, Color.red);
         rayUpShot = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out upHit, 1.25f);
 
-        if(upHit.collider)
+        if (upHit.collider)
         {
-            if(upHit.collider.gameObject.GetComponent<WheelDoor>()) 
+            if (upHit.collider.gameObject.GetComponent<WheelDoor>())
             {
                 Die();
             }
-            
-            //Die();
         }
 
         if (dist <= 1.5f)
@@ -108,7 +102,8 @@ public class InjuryManager : MonoBehaviour
         }
     }
 
-    public void Die() {
+    public void Die()
+    {
         Debug.Log("Death.");
     }
 }

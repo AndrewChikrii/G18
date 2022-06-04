@@ -9,6 +9,8 @@ public class Fuse : MonoBehaviour, IActivatable
 
     [SerializeField] float dist;
 
+    [SerializeField] Item item;
+
     private bool questDone;
 
     HintDisplay hintDisplay;
@@ -30,10 +32,12 @@ public class Fuse : MonoBehaviour, IActivatable
             GameObject.Find("PlayerCamera").GetComponent<PRaycast>().CancelAction();
             fuse.transform.position = new Vector3(transform.position.x + 0.20f, transform.position.y, transform.position.z);
             Destroy(fuse.GetComponent<Grabbable>());
+            Destroy(GetComponent<BoxCollider>());
             Destroy(fuse.GetComponent<Rigidbody>());
 
             fuse.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
 
+            SC_FPSController.inventory.AddItem(item);
             this.enabled = false;
         }
     }
