@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fuse : MonoBehaviour
+public class Fuse : MonoBehaviour, IActivatable
 {
 
     [SerializeField] GameObject fuse;
@@ -11,6 +11,12 @@ public class Fuse : MonoBehaviour
 
     private bool questDone;
 
+    HintDisplay hintDisplay;
+
+    void Start()
+    {
+        hintDisplay = GameObject.Find("Canvas").GetComponent<HintDisplay>();
+    }
     void FixedUpdate()
     {
         dist = Vector3.Distance(fuse.transform.position, transform.position);
@@ -31,4 +37,12 @@ public class Fuse : MonoBehaviour
             this.enabled = false;
         }
     }
+
+    public void ActPrimary()
+    {
+        hintDisplay.interaction.text = "Fuse is missing";
+        StartCoroutine(hintDisplay.HintCoroutine());
+    }
+    public void ActSecondary() { }
+    public void Deact() { }
 }
