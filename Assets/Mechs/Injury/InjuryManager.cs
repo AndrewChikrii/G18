@@ -21,71 +21,94 @@ public class InjuryManager : MonoBehaviour
     float playerWalkSpeed;
     float playerRunSpeed;
 
+    RaycastHit upHit;
+    bool rayUpShot;
+
     void Start()
     {
-        if (GameObject.Find("Creep"))
+        if(GameObject.Find("Creep")) 
         {
-            volume = GameObject.Find("Global Volume").GetComponent<Volume>();
             creep = GameObject.Find("Creep").GetComponent<CreepController>();
-            playerCont = GetComponent<SC_FPSController>();
-            playerWalkSpeed = playerCont.walkingSpeed;
-            playerRunSpeed = playerCont.runningSpeed;
         }
-        else
-        {
-            Destroy(this);
-        }
+        volume = GameObject.Find("Global Volume").GetComponent<Volume>();
+        playerCont = GetComponent<SC_FPSController>();
+        playerWalkSpeed = playerCont.walkingSpeed;
+        playerRunSpeed = playerCont.runningSpeed;
     }
 
     void Update()
     {
-        dist = Vector3.Distance(transform.position, creep.transform.position);
-
-        if (volume.profile.TryGet<Vignette>(out vig))
+        if(creep) 
         {
-            if (creep.currState == "aggro")
+            dist = Vector3.Distance(transform.position, creep.transform.position);
+
+            if (volume.profile.TryGet<Vignette>(out vig))
             {
-                vig.intensity.Override(Mathf.Lerp(vig.intensity.value, 0.45f, 5f * Time.deltaTime));
+                if (creep.currState == "aggro")
+                {
+                    vig.intensity.Override(Mathf.Lerp(vig.intensity.value, 0.45f, 5f * Time.deltaTime));
+                }
+                else
+                {
+                    vig.intensity.Override(Mathf.Lerp(vig.intensity.value, 0f, 1f * Time.deltaTime));
+                }
+
+            }
+            if (volume.profile.TryGet<FilmGrain>(out grain))
+            {
+                grain.intensity.Override(creep.aggroSpoolUp * 0.01f);
+            }
+            if (volume.profile.TryGet<DepthOfField>(out dof))
+            {
+                dof.focalLength.Override(creep.aggroSpoolUp * 2f);
+                dof.focusDistance.Override(dist);
+            }
+            if (volume.profile.TryGet<ColorAdjustments>(out ca))
+            {
+                ca.contrast.Override(Mathf.Lerp(ca.contrast.value, creep.aggroSpoolUp * 0.3f, 15f * Time.deltaTime));
+                ca.postExposure.Override(creep.aggroSpoolUp * 0.015f);
+            }
+            if (volume.profile.TryGet<MotionBlur>(out mb))
+            {
+                mb.intensity.Override(Mathf.Lerp(mb.intensity.value, creep.aggroSpoolUp * 0.03f, 15f * Time.deltaTime));
+            }
+
+            if (creep.aggroSpoolUp >= 100f)
+            {
+                playerCont.walkingSpeed = Mathf.Lerp(playerCont.walkingSpeed, playerWalkSpeed - (creep.aggroSpoolUp / 100f), 2f * Time.deltaTime);
+                playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed - (creep.aggroSpoolUp / 100f), 2f * Time.deltaTime);
             }
             else
             {
-                vig.intensity.Override(Mathf.Lerp(vig.intensity.value, 0f, 1f * Time.deltaTime));
+                playerCont.walkingSpeed = Mathf.Lerp(playerCont.walkingSpeed, playerWalkSpeed, 2f * Time.deltaTime);
+                playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed, 2f * Time.deltaTime);
             }
+        }
+        else 
+        {
+            dist = 100f;
+        }
+        
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 1.25f, Color.red);
+        rayUpShot = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out upHit, 1.25f);
 
-        }
-        if (volume.profile.TryGet<FilmGrain>(out grain))
+        if(upHit.collider)
         {
-            grain.intensity.Override(creep.aggroSpoolUp * 0.01f);
-        }
-        if (volume.profile.TryGet<DepthOfField>(out dof))
-        {
-            dof.focalLength.Override(creep.aggroSpoolUp * 2f);
-            dof.focusDistance.Override(dist);
-        }
-        if (volume.profile.TryGet<ColorAdjustments>(out ca))
-        {
-            ca.contrast.Override(Mathf.Lerp(ca.contrast.value, creep.aggroSpoolUp * 0.3f, 15f * Time.deltaTime));
-            ca.postExposure.Override(creep.aggroSpoolUp * 0.015f);
-        }
-        if (volume.profile.TryGet<MotionBlur>(out mb))
-        {
-            mb.intensity.Override(Mathf.Lerp(mb.intensity.value, creep.aggroSpoolUp * 0.03f, 15f * Time.deltaTime));
-        }
-
-        if (creep.aggroSpoolUp >= 100f)
-        {
-            playerCont.walkingSpeed = Mathf.Lerp(playerCont.walkingSpeed, playerWalkSpeed - (creep.aggroSpoolUp / 100f), 2f * Time.deltaTime);
-            playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed - (creep.aggroSpoolUp / 100f), 2f * Time.deltaTime);
-        }
-        else
-        {
-            playerCont.walkingSpeed = Mathf.Lerp(playerCont.walkingSpeed, playerWalkSpeed, 2f * Time.deltaTime);
-            playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed, 2f * Time.deltaTime);
+            if(upHit.collider.gameObject.GetComponent<WheelDoor>()) 
+            {
+                Die();
+            }
+            
+            //Die();
         }
 
         if (dist <= 1.5f)
         {
-            Debug.Log("Death.");
+            Die();
         }
+    }
+
+    public void Die() {
+        Debug.Log("Death.");
     }
 }

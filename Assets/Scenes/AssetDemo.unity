@@ -180,6 +180,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f60a52782abeed346a8febebc980de3f, type: 3}
+--- !u!1 &249381020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5864185328677222565, guid: 0501f10c415be074eaa4316f07c7d2b3, type: 3}
+  m_PrefabInstance: {fileID: 5785008016228135676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &413224167 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7959970505339883173, guid: 36df34f3b083b49408c65a32cd697224, type: 3}
@@ -216,7 +221,7 @@ Transform:
   - {fileID: 2138677393}
   - {fileID: 638570663}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &462058784
 GameObject:
@@ -470,7 +475,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2675642819581295282, guid: 31e2c268246b606489579ded472c8ae8, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2675642819581295282, guid: 31e2c268246b606489579ded472c8ae8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1319,7 +1324,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 235732889669837143, guid: 9ab3fa87ee48d1c498926d11f478465d, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 235732889669837143, guid: 9ab3fa87ee48d1c498926d11f478465d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2019,7 +2024,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1797985121739832546, guid: 36df34f3b083b49408c65a32cd697224, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1797985121739832546, guid: 36df34f3b083b49408c65a32cd697224, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2195,7 +2200,7 @@ PrefabInstance:
     - target: {fileID: 1549645586652692328, guid: 8078eb65f542ff04093cc29d21874e7d, type: 3}
       propertyPath: keyWheel
       value: 
-      objectReference: {fileID: 413224167}
+      objectReference: {fileID: 249381020}
     - target: {fileID: 7410152732314291338, guid: 8078eb65f542ff04093cc29d21874e7d, type: 3}
       propertyPath: m_RootOrder
       value: 8

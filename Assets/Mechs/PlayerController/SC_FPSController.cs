@@ -17,7 +17,7 @@ public class SC_FPSController : MonoBehaviour
     [SerializeField] float lookSpeed = 2f;
     float lookXLimit = 65.0f;
 
-    CharacterController characterController;
+    public CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
 
