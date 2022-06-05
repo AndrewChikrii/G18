@@ -30,7 +30,7 @@ public class Fuse : MonoBehaviour, IActivatable
             fuse.transform.SetParent(transform);
 
             GameObject.Find("PlayerCamera").GetComponent<PRaycast>().CancelAction();
-            fuse.transform.position = new Vector3(transform.position.x + 0.20f, transform.position.y, transform.position.z);
+            fuse.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.20f);
             Destroy(fuse.GetComponent<Grabbable>());
             Destroy(GetComponent<BoxCollider>());
             Destroy(fuse.GetComponent<Rigidbody>());
