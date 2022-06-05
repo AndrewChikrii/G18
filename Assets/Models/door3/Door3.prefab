@@ -218,6 +218,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openX: 0
-  openY: -70
+  openY: -110
   openZ: 0
   speed: 1

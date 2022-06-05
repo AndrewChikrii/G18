@@ -102,7 +102,7 @@ Material:
     - _NoiseIntensity: 0.1
     - _NoiseScale: 10
     - _NoiseSpeed: 0.05
-    - _NormalSpeed: 50
+    - _NormalSpeed: 150
     - _NormalStrength: 0.392
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -123,7 +123,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShallowColor: {r: 0.20171641, g: 0.21698111, b: 0.074510485, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tiling: {r: 10, g: 10, b: 0, a: 0}
+    - _Tiling: {r: 2, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3605734292972577561
 MonoBehaviour:
