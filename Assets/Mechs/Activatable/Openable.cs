@@ -26,6 +26,7 @@ public class Openable : MonoBehaviour, IActivatable
     public void ActPrimary()
     {
         if (freezed) return;
+        rotator.GetComponent<DoorRotator>().speed = 1f;
         if (!locked)
         {
             OpenOrClose();
@@ -43,7 +44,18 @@ public class Openable : MonoBehaviour, IActivatable
         hintDisplay.interaction.text = "Door is locked";
         StartCoroutine(hintDisplay.HintCoroutine());
     }
-    public void ActSecondary() { }
+    public void ActSecondary()
+    {
+        if (freezed) return;
+        rotator.GetComponent<DoorRotator>().speed = 3f;
+        if (!locked)
+        {
+            OpenOrClose();
+            return;
+        }
+        hintDisplay.interaction.text = "Door is locked";
+        StartCoroutine(hintDisplay.HintCoroutine());
+    }
     public void Deact() { }
 
     void Open()
