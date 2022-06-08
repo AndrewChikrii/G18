@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        var itemInstance = GameObject.Instantiate(item);
+        Item itemInstance = GameObject.Instantiate(item);
         if (!itemInstance.isStackable || itemList.Count == 0)
         {
             itemList.Add(itemInstance);
@@ -25,12 +25,10 @@ public class Inventory : MonoBehaviour
             if (invItem.name == itemInstance.name)
             {
                 invItem.amount += itemInstance.amount;
-            }
-            else
-            {
-                itemList.Add(itemInstance);
+                return;
             }
         }
+        itemList.Add(itemInstance);
     }
 
     public int? MatchesCount()

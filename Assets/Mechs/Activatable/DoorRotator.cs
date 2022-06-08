@@ -10,7 +10,7 @@ public class DoorRotator : MonoBehaviour
     [SerializeField] float openX;
     [SerializeField] float openY;
     [SerializeField] float openZ;
-    [SerializeField] float speed = 1f;
+    public float speed = 1f;
 
     void Start()
     {
