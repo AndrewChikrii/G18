@@ -13,10 +13,12 @@ public class Openable : MonoBehaviour, IActivatable
     [SerializeField] float freezeTime = 1f;
 
     HintDisplay hintDisplay;
+    AudioSource audio;
 
     void Start()
     {
         hintDisplay = GameObject.Find("Canvas").GetComponent<HintDisplay>();
+        audio = GetComponent<AudioSource>();
         if (opened)
         {
             Open();
@@ -71,6 +73,10 @@ public class Openable : MonoBehaviour, IActivatable
 
     void OpenOrClose()
     {
+        audio.volume = audio.volume * Random.Range(0.5f, 1.5f);
+        audio.pitch = audio.pitch * Random.Range(0.98f, 1.02f);
+        audio.Play();
+
         if (!opened)
         {
             Open();
