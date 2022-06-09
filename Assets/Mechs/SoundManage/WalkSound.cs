@@ -19,14 +19,13 @@ public class WalkSound : MonoBehaviour
     {
         //soundConc = GetComponent<AudioSource>();
         //soundWater = GetComponent<AudioSource>();
-        
     }
 
     void Update()
     {
         soundConc.volume = Mathf.Lerp(soundConc.volume, 0, 20 * Time.deltaTime);
         soundWater.volume = Mathf.Lerp(soundWater.volume, 0, 5 * Time.deltaTime);
-        if(isMoved)
+        if (isMoved)
         {
             soundConc.volume = Mathf.Lerp(soundConc.volume, volumeConc, 20 * Time.deltaTime);
             soundWater.volume = Mathf.Lerp(soundWater.volume, volumeWater, 20 * Time.deltaTime);
@@ -39,7 +38,7 @@ public class WalkSound : MonoBehaviour
 
         if (groundHit.collider)
         {
-            if(groundHit.collider.gameObject.name == "Water") 
+            if (groundHit.collider.gameObject.name == "Water")
             {
                 volumeConc = Mathf.Lerp(volumeConc, 0f, 2 * Time.deltaTime);
                 volumeWater = Mathf.Lerp(volumeWater, walkSoundVolume, 2 * Time.deltaTime);
@@ -51,13 +50,13 @@ public class WalkSound : MonoBehaviour
             }
         }
     }
- 
-    IEnumerator moveCheck() 
+
+    IEnumerator moveCheck()
     {
         Vector3 p1 = transform.position;
         yield return new WaitForSeconds(0.1f);
         Vector3 p2 = transform.position;
         isMoved = !p1.Equals(p2);
-        yield return null;             
+        yield return null;
     }
 }
