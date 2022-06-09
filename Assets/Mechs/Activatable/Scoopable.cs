@@ -5,11 +5,20 @@ using UnityEngine;
 public class Scoopable : MonoBehaviour, IActivatable
 {
     [SerializeField] Item item;
+    AudioSource audio;
+
+    void Start()
+    {
+        audio = GetComponent<AudioSource>();
+    }
 
     public void ActPrimary()
     {
         SC_FPSController.inventory.AddItem(item);
-        Destroy(gameObject);
+        audio.Play();
+        Destroy(gameObject.GetComponent<BoxCollider>());
+        Destroy(gameObject.transform.GetChild(0).gameObject);
+        Destroy(gameObject, 2f);
     }
 
     public void ActSecondary() { }

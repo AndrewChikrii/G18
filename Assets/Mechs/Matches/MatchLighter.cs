@@ -13,12 +13,14 @@ public class MatchLighter : MonoBehaviour
     IEnumerator throwCor;
     GameObject playerCamera;
 
+    [SerializeField] AudioSource audio;
+
     float maxAlpha = 1f;
 
     void Start()
     {
         playerCamera = GameObject.Find("PlayerCamera");
-
+        
         matchesCount = uiMatchesCount.GetComponent<Text>();
     }
 
@@ -54,6 +56,7 @@ public class MatchLighter : MonoBehaviour
 
     void LightUp()
     {
+        audio.Play();
         SC_FPSController.inventory.RemoveItem(SC_FPSController.inventory.GetItemList().Find(item => item.name == "Matches"));
         MatchesUI();
         GameObject match = Instantiate(matchSpotPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
@@ -62,6 +65,7 @@ public class MatchLighter : MonoBehaviour
 
     void LightThrow()
     {
+        audio.Play();
         SC_FPSController.inventory.RemoveItem(SC_FPSController.inventory.GetItemList().Find(item => item.name == "Matches"));
         MatchesUI();
         GameObject match = Instantiate(matchPointPrefab, new Vector3(transform.position.x, transform.position.y + 1.25f, transform.position.z), transform.rotation);

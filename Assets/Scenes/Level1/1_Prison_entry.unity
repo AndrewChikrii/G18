@@ -330,6 +330,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5879583009736228010, guid: 9ab3fa87ee48d1c498926d11f478465d, type: 3}
+      propertyPath: m_Pitch
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5879583009736228010, guid: 9ab3fa87ee48d1c498926d11f478465d, type: 3}
+      propertyPath: m_Volume
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 7266627574682421317, guid: 9ab3fa87ee48d1c498926d11f478465d, type: 3}
+      propertyPath: audio
+      value: 
+      objectReference: {fileID: 872671935}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ab3fa87ee48d1c498926d11f478465d, type: 3}
 --- !u!1001 &13702002
@@ -11975,6 +11987,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2540975111960701377, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
+      propertyPath: m_Pitch
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540975111960701377, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
+      propertyPath: m_Volume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540975111960701377, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
+      propertyPath: MaxDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540975111960701377, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540975111960701377, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0.26944444
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540975111960701377, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3562343232946507537, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
       propertyPath: m_Icon
       value: 
@@ -12045,7 +12081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3562343232946507550, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
       propertyPath: aggroSpoolUpModifier
-      value: 0.45
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3562343232946507550, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
       propertyPath: inputDestList.Array.size
@@ -12054,19 +12090,19 @@ PrefabInstance:
     - target: {fileID: 3562343232946507550, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
       propertyPath: inputDestList.Array.data[0]
       value: 
-      objectReference: {fileID: 1581541543}
+      objectReference: {fileID: 872272403}
     - target: {fileID: 3562343232946507550, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
       propertyPath: inputDestList.Array.data[1]
       value: 
-      objectReference: {fileID: 872272403}
+      objectReference: {fileID: 1448703146}
     - target: {fileID: 3562343232946507550, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
       propertyPath: inputDestList.Array.data[2]
       value: 
-      objectReference: {fileID: 1448703146}
+      objectReference: {fileID: 2102638578}
     - target: {fileID: 3562343232946507550, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
       propertyPath: inputDestList.Array.data[3]
       value: 
-      objectReference: {fileID: 2102638578}
+      objectReference: {fileID: 1581541543}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb3bca46760fd7540bb9c5a23ea77ac1, type: 3}
 --- !u!1001 &722965897
@@ -15211,6 +15247,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &872671935 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2794775868338811917, guid: 9ab3fa87ee48d1c498926d11f478465d, type: 3}
+  m_PrefabInstance: {fileID: 8945006}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &880738366
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,6 +20,8 @@ public class InjuryManager : MonoBehaviour
     RaycastHit upHit;
     bool rayUpShot;
 
+    [SerializeField] AudioSource audio;
+
     void Start()
     {
         if (GameObject.Find("Creep"))
@@ -37,6 +39,9 @@ public class InjuryManager : MonoBehaviour
         if (creep)
         {
             dist = Vector3.Distance(transform.position, creep.transform.position);
+
+            audio.volume = creep.aggroSpoolUp * 0.01f;
+            audio.pitch = 1f + creep.aggroSpoolUp * 0.0075f;
 
             if (volume.profile.TryGet<Vignette>(out vig))
             {
