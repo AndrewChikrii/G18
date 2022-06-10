@@ -15,9 +15,15 @@ public class Fuse : MonoBehaviour, IActivatable
 
     HintDisplay hintDisplay;
 
+    AudioSource audio;
+
+    [SerializeField] GameObject doorAudio;
+    [SerializeField] GameObject partSys;
+
     void Start()
     {
         hintDisplay = GameObject.Find("Canvas").GetComponent<HintDisplay>();
+        audio = GetComponent<AudioSource>();
     }
     void FixedUpdate()
     {
@@ -36,7 +42,10 @@ public class Fuse : MonoBehaviour, IActivatable
             Destroy(fuse.GetComponent<Rigidbody>());
 
             fuse.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-
+            audio.Play();
+            doorAudio.GetComponent<AudioSource>().Play();
+            partSys.GetComponent<ParticleSystem>().Play();//.enableEmission = true;
+            //partSys.enableEmmision = true;
             SC_FPSController.inventory.AddItem(item);
             this.enabled = false;
         }
