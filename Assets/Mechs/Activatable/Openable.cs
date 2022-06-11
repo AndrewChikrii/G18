@@ -13,12 +13,13 @@ public class Openable : MonoBehaviour, IActivatable
     [SerializeField] float freezeTime = 1f;
 
     HintDisplay hintDisplay;
-    AudioSource audio;
+    [SerializeField] AudioSource audioSqueeze;
+    [SerializeField] AudioSource audioUnlock;
 
     void Start()
     {
         hintDisplay = GameObject.Find("Canvas").GetComponent<HintDisplay>();
-        audio = GetComponent<AudioSource>();
+        
         if (opened)
         {
             Open();
@@ -38,6 +39,7 @@ public class Openable : MonoBehaviour, IActivatable
         Item doorKey = SC_FPSController.inventory.GetItemList().Find(item => item.name == key?.name);
         if (key && doorKey)
         {
+            audioUnlock.Play();
             locked = false;
             hintDisplay.interaction.text = "Door unlocked";
             StartCoroutine(hintDisplay.HintCoroutine());
@@ -85,9 +87,9 @@ public class Openable : MonoBehaviour, IActivatable
 
     void OpenOrClose()
     {
-        audio.volume = audio.volume * Random.Range(0.5f, 1.5f);
-        audio.pitch = audio.pitch * Random.Range(0.98f, 1.02f);
-        audio.Play();
+        audioSqueeze.volume = GetComponent<AudioSource>().volume * Random.Range(0.5f, 1.5f);
+        audioSqueeze.pitch = GetComponent<AudioSource>().pitch * Random.Range(0.98f, 1.02f);
+        audioSqueeze.Play();
 
         if (!opened)
         {
