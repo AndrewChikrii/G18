@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class InjuryManager : MonoBehaviour
 {
@@ -19,8 +20,10 @@ public class InjuryManager : MonoBehaviour
     float playerRunSpeed;
     RaycastHit upHit;
     bool rayUpShot;
+    bool dead;
 
-    [SerializeField] AudioSource audio;
+    [SerializeField] AudioSource audioHB;
+    [SerializeField] AudioSource audioDeath;
 
     void Start()
     {
@@ -40,49 +43,50 @@ public class InjuryManager : MonoBehaviour
         {
             dist = Vector3.Distance(transform.position, creep.transform.position);
 
-            audio.volume = creep.aggroSpoolUp * 0.01f;
-            audio.pitch = 1f + creep.aggroSpoolUp * 0.0075f;
-
-            if (volume.profile.TryGet<Vignette>(out vig))
-            {
-                if (creep.currState == "aggro")
+            audioHB.volume = creep.aggroSpoolUp * 0.01f;
+            audioHB.pitch = 1f + creep.aggroSpoolUp * 0.0075f;
+            if(!dead) {
+                if (volume.profile.TryGet<Vignette>(out vig))
                 {
-                    vig.intensity.Override(Mathf.Lerp(vig.intensity.value, 0.45f, 5f * Time.deltaTime));
+                    if (creep.currState == "aggro")
+                    {
+                        vig.intensity.Override(Mathf.Lerp(vig.intensity.value, 0.45f, 5f * Time.deltaTime));
+                    }
+                    else
+                    {
+                        vig.intensity.Override(Mathf.Lerp(vig.intensity.value, 0f, 1f * Time.deltaTime));
+                    }
+
+                }
+                if (volume.profile.TryGet<FilmGrain>(out grain))
+                {
+                    grain.intensity.Override(creep.aggroSpoolUp * 0.01f);
+                }
+                if (volume.profile.TryGet<DepthOfField>(out dof))
+                {
+                    dof.focalLength.Override(creep.aggroSpoolUp * 2f);
+                    dof.focusDistance.Override(dist);
+                }
+                if (volume.profile.TryGet<ColorAdjustments>(out ca))
+                {
+                    ca.contrast.Override(Mathf.Lerp(ca.contrast.value, creep.aggroSpoolUp * 0.3f, 15f * Time.deltaTime));
+                    ca.postExposure.Override(creep.aggroSpoolUp * 0.015f);
+                }
+                if (volume.profile.TryGet<MotionBlur>(out mb))
+                {
+                    mb.intensity.Override(Mathf.Lerp(mb.intensity.value, creep.aggroSpoolUp * 0.03f, 15f * Time.deltaTime));
+                }
+
+                if (creep.aggroSpoolUp >= 100f)
+                {
+                    playerCont.walkingSpeed = Mathf.Lerp(playerCont.walkingSpeed, playerWalkSpeed - (creep.aggroSpoolUp / 100f), 2f * Time.deltaTime);
+                    playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed - (creep.aggroSpoolUp / 100f), 2f * Time.deltaTime);
                 }
                 else
                 {
-                    vig.intensity.Override(Mathf.Lerp(vig.intensity.value, 0f, 1f * Time.deltaTime));
+                    playerCont.walkingSpeed = Mathf.Lerp(playerCont.walkingSpeed, playerWalkSpeed, 2f * Time.deltaTime);
+                    playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed, 2f * Time.deltaTime);
                 }
-
-            }
-            if (volume.profile.TryGet<FilmGrain>(out grain))
-            {
-                grain.intensity.Override(creep.aggroSpoolUp * 0.01f);
-            }
-            if (volume.profile.TryGet<DepthOfField>(out dof))
-            {
-                dof.focalLength.Override(creep.aggroSpoolUp * 2f);
-                dof.focusDistance.Override(dist);
-            }
-            if (volume.profile.TryGet<ColorAdjustments>(out ca))
-            {
-                ca.contrast.Override(Mathf.Lerp(ca.contrast.value, creep.aggroSpoolUp * 0.3f, 15f * Time.deltaTime));
-                ca.postExposure.Override(creep.aggroSpoolUp * 0.015f);
-            }
-            if (volume.profile.TryGet<MotionBlur>(out mb))
-            {
-                mb.intensity.Override(Mathf.Lerp(mb.intensity.value, creep.aggroSpoolUp * 0.03f, 15f * Time.deltaTime));
-            }
-
-            if (creep.aggroSpoolUp >= 100f)
-            {
-                playerCont.walkingSpeed = Mathf.Lerp(playerCont.walkingSpeed, playerWalkSpeed - (creep.aggroSpoolUp / 100f), 2f * Time.deltaTime);
-                playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed - (creep.aggroSpoolUp / 100f), 2f * Time.deltaTime);
-            }
-            else
-            {
-                playerCont.walkingSpeed = Mathf.Lerp(playerCont.walkingSpeed, playerWalkSpeed, 2f * Time.deltaTime);
-                playerCont.runningSpeed = Mathf.Lerp(playerCont.runningSpeed, playerRunSpeed, 2f * Time.deltaTime);
             }
         }
         else
@@ -95,20 +99,30 @@ public class InjuryManager : MonoBehaviour
 
         if (upHit.collider)
         {
-            if (upHit.collider.gameObject.GetComponent<WheelDoor>())
+            if (upHit.collider.gameObject.GetComponent<WheelDoor>() && !dead)
             {
-                Die();
+                StartCoroutine(Die());
             }
         }
 
-        if (dist <= 1.5f)
+        if (dist <= 1.5f && !dead)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
-    public void Die()
+    public IEnumerator Die()
     {
+        dead = true;
+        audioDeath.Play();
+        if (volume.profile.TryGet<ColorAdjustments>(out ca))
+        {
+            ca.contrast.Override(100f);
+            ca.postExposure.Override(-5f);
+        }
         Debug.Log("Death.");
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        yield return null;
     }
 }

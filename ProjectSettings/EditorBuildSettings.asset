@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/AssetDemo.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 1
     path: Assets/Scenes/Level1/1_Prison_entry.unity
     guid: 7c790d57e2965594491eae92cfdc3a68
+  - enabled: 1
+    path: Assets/Scenes/Level2/2_Coridors.unity
+    guid: fac6fee88c6c32845b8f86468f4cef6a
+  - enabled: 1
+    path: Assets/Scenes/Level3/3_Sewers.unity
+    guid: caba012f809712242ae42c29348121e9
   m_configObjects: {}

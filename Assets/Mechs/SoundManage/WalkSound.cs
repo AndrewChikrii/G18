@@ -14,13 +14,7 @@ public class WalkSound : MonoBehaviour
 
     RaycastHit groundHit;
     bool groundShot;
-
-    void Start()
-    {
-        //soundConc = GetComponent<AudioSource>();
-        //soundWater = GetComponent<AudioSource>();
-    }
-
+    
     void Update()
     {
         soundConc.volume = Mathf.Lerp(soundConc.volume, 0, 20 * Time.deltaTime);
