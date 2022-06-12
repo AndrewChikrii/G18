@@ -1,5 +1,8 @@
 # G18
 
+### Demo gameplay
+https://www.youtube.com/watch?v=yHhBbKEfBbc
+
 ### How to start
 
 Select the first scene:<br />
@@ -22,3 +25,4 @@ F (hold) - light up a match<br />
 F (hit) -  light up and throw a match<br />
 
 F9 - restart
+
