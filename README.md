@@ -26,3 +26,4 @@ F (hit) -  light up and throw a match<br />
 
 F9 - restart
 
+Left Alt - close note view (ESC analogue)
