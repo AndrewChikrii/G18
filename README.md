@@ -21,4 +21,4 @@ Mouse2 - secondary interaction<br />
 F (hold) - light up a match<br />
 F (hit) -  light up and throw a match<br />
 
-
+F9 - restart
